@@ -1,0 +1,193 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Gender {
+  male
+  female
+}
+
+enum Roles {
+  admin
+  contributor
+  member
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String    @unique
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  username      String?   @unique
+  gender        Gender?
+  role          Roles?    @default(member)
+  peoples       People[]
+  posts         Post[]
+  reviews       Review[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([email, username])
+}
+
+model Account {
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([provider, providerAccountId])
+}
+
+model Country {
+  id      String   @id @default(cuid())
+  name    String
+  slug    String   @unique
+  peoples People[]
+  movies  Movie[]
+  dramas  Drama[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Category {
+  id     String  @id @default(cuid())
+  name   String
+  slug   String  @unique
+  movies Movie[]
+  dramas Drama[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model People {
+  id           String   @id @default(cuid())
+  name         String
+  slug         String   @unique
+  bio          String
+  gender       Gender
+  avatar       String?
+  birthDate    DateTime
+  nativeName   String?
+  countryId    String
+  nationality  Country  @relation(fields: [countryId], references: [id])
+  lastEditById String
+  authors      User[]
+  casts        Cast[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Post {
+  id           String     @id @default(cuid())
+  title        String
+  nativeTitle  String?
+  slug         String     @unique
+  content      String
+  type         String
+  movie        Movie?
+  drama        Drama?
+  lastEditById String
+  authors      User[]
+  status       PostStatus @default(draft)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum PostStatus {
+  draft
+  pending
+  public
+}
+
+model Cast {
+  id            String  @id @default(cuid())
+  characterName String?
+  people        People  @relation(fields: [peopleId], references: [id])
+  peopleId      String
+  movie         Movie?  @relation(fields: [movieId], references: [id], onDelete: Cascade)
+  movieId       String?
+  drama         Drama?  @relation(fields: [dramaId], references: [id], onDelete: Cascade)
+  dramaId       String?
+}
+
+model Movie {
+  id            String     @id @default(cuid())
+  post          Post       @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId        String     @unique
+  director      String
+  poster        String?
+  releaseDate   DateTime?
+  trailer       String?
+  contentRating String?
+  screenWriter  String?
+  categories    Category[]
+  countries     Country[]
+  casts         Cast[]
+  reviews       Review[]
+}
+
+model Drama {
+  id            String     @id @default(cuid())
+  post          Post       @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId        String     @unique
+  categories    Category[]
+  countries     Country[]
+  casts         Cast[]
+  director      String
+  poster        String?
+  episodes      Int
+  trailer       String?
+  airedStart    DateTime?
+  airedEnd      DateTime?
+  airedOn       String?
+  network       String?
+  contentRating String?
+  screenWriter  String?
+  reviews       Review[]
+}
+
+model Review {
+  id      String  @id @default(uuid())
+  value   Int
+  content String
+  movieId String?
+  movie   Movie?  @relation(fields: [movieId], references: [id], onDelete: Cascade)
+  dramaId String?
+  drama   Drama?  @relation(fields: [dramaId], references: [id], onDelete: Cascade)
+  userId  String
+  author  User    @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
