@@ -10,6 +10,7 @@ import { enUS } from "date-fns/locale";
 import { getPeople } from "@/actions/people";
 import { getAge } from "@/actions/utils";
 import PostResult from "./components/post-result";
+import FooterComponent from "@/components/footer";
 
 interface DetailPeopleProps {
   params: { slug: string };
@@ -68,34 +69,36 @@ export default async function DetailPeople({
             </AspectRatio>
           </div>
 
-          <div className="detail prose sticky top-10 mt-10 flex flex-col gap-2 rounded-md border border-input px-3 py-2 ring-offset-background dark:prose-invert">
-            <h2>Details</h2>
-            <div>
-              <span className="font-bold">Native Name: </span>{" "}
-              {people.nativeName}
+          <div className="detail sticky top-10 mt-10 flex flex-col gap-2 px-3 py-2">
+            <div className="prose flex flex-col gap-2 rounded-md border border-input px-3 py-2 ring-offset-background dark:prose-invert">
+              <h2>Details</h2>
+              <div>
+                <span className="font-bold">Native Name: </span>{" "}
+                {people.nativeName}
+              </div>
+              <div>
+                <span className="font-bold">Gender: </span> {people.gender}
+              </div>
+              <div>
+                <span className="font-bold">Birth Date: </span>{" "}
+                {format(people.birthDate, "PP", { locale: enUS })}
+              </div>
+              <div className="flex flex-wrap gap-2">
+                <span className="w-fit font-bold">Nationality: </span>{" "}
+                <span className="flex-1">
+                  <Link
+                    href={`/country/${people.nationality.slug}`}
+                    title={people.nationality.name}
+                    className="flex items-center gap-1 no-underline hover:text-primary"
+                  >
+                    {countryFlag(people.nationality.name)}
+                    <span>{people.nationality.name}</span>
+                  </Link>
+                </span>
+              </div>
             </div>
-            <div>
-              <span className="font-bold">Gender: </span> {people.gender}
-            </div>
-            <div>
-              <span className="font-bold">Birth Date: </span>{" "}
-              {format(people.birthDate, "PP", { locale: enUS })}
-            </div>
-            <div className="flex flex-wrap gap-2">
-              <span className="w-fit font-bold">Nationality: </span>{" "}
-              <span className="flex-1">
-                <Link
-                  href={`/country/${people.nationality.slug}`}
-                  title={people.nationality.name}
-                  className="flex items-center gap-1 no-underline hover:text-primary"
-                >
-                  {countryFlag(people.nationality.name)}
-                  <span>{people.nationality.name}</span>
-                </Link>
-              </span>
-            </div>
+            <FooterComponent />
           </div>
-          {/* <RelatedPost postId={post.id!} /> */}
         </div>
       </div>
     </article>

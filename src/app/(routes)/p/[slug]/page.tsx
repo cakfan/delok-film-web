@@ -17,6 +17,7 @@ import { enUS } from "date-fns/locale";
 import { cn } from "@/lib/utils";
 import { CalendarFoldIcon } from "lucide-react";
 import RelatedPost from "./components/related";
+import FooterComponent from "@/components/footer";
 
 interface DetailPageProps {
   params: { slug: string };
@@ -187,6 +188,7 @@ export default async function DetailPage({
             </div>
           </div>
           <RelatedPost postId={post.id!} />
+          <FooterComponent />
         </div>
       </div>
     </article>
