@@ -66,7 +66,7 @@ const PostComponent: FC<PostProps> = async ({ slug }) => {
         <div className="prose flex items-start gap-2 dark:prose-invert lg:prose-xl">
           <h1 className="flex-1">{post.title}</h1>
           <a
-            href={`${post.slug}#reviews`}
+            href={`#reviews`}
             className="flex items-center gap-2 no-underline"
             title="Rating & Reviews"
           >

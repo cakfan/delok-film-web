@@ -1,9 +1,8 @@
-import { getMyReview } from "@/actions/review";
-import ReviewCard from "@/components/card/review";
-import { Each } from "@/components/ui/Each";
-import { ReviewWithAuthor } from "@/types/post/review";
-import { User } from "@prisma/client";
 import { FC } from "react";
+import { User } from "@prisma/client";
+import { ReviewWithAuthor } from "@/types/post/review";
+import { Each } from "@/components/ui/Each";
+import ReviewCard from "@/components/card/review";
 
 interface ReviewsListProps {
   reviews: ReviewWithAuthor[] | null;
