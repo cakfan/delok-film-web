@@ -1,13 +1,14 @@
 import { FC } from "react";
-import { PostWithMovieAndDrama } from "@/types/post";
+import { getPostsByPeople } from "@/actions/post";
 import { Each } from "@/components/ui/Each";
 import DFCard from "@/components/card";
 
 interface PostResultProps {
-  posts: PostWithMovieAndDrama[] | null;
+  peopleId: string;
 }
 
-const PostResult: FC<PostResultProps> = ({ posts }) => {
+const PostResult: FC<PostResultProps> = async ({ peopleId }) => {
+  const posts = await getPostsByPeople({ people: peopleId });
   if (!posts?.length) return null;
 
   return (
