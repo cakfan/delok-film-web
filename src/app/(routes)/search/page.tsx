@@ -13,7 +13,9 @@ interface SearchProps {
   };
 }
 
-export const metadata = ({ searchParams: { q } }: SearchProps): Metadata => ({
+export const generateMetadata = ({
+  searchParams: { q },
+}: SearchProps): Metadata => ({
   title: q ? `Search "${q}"` : "Search",
   description: "Find movies and dramas",
 });

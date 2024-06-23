@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getAllCategories } from "@/actions/categoy";
+import { getAllCategories, getCategory } from "@/actions/categoy";
 import { getAllPost } from "@/actions/post";
 import CategoryList from "./components/client";
 import PostResult from "./components/result";
@@ -12,10 +12,15 @@ interface CategoryProps {
   };
 }
 
-export const metadata = ({ searchParams: { q } }: CategoryProps): Metadata => ({
-  title: q ? q : "Category",
-  description: "Find category for movies and dramas",
-});
+export const generateMetadata = async ({
+  searchParams: { q },
+}: CategoryProps): Promise<Metadata> => {
+  const category = await getCategory({ slug: q });
+  return {
+    title: category ? category.name : "Category",
+    description: "Find category for movies and dramas",
+  };
+};
 
 export default async function CategoryPage({
   searchParams: { q },
