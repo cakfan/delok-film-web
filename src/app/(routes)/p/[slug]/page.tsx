@@ -1,4 +1,4 @@
-// import { Suspense } from "react";
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { getPost } from "@/actions/post";
@@ -124,9 +124,9 @@ export default async function DetailPage({
           </div>
           <DetailCast post={post} />
 
-          {/* <Suspense fallback={<ReviewSkeleton total={4} />}> */}
-          <Review post={post} />
-          {/* </Suspense> */}
+          <Suspense fallback={<ReviewSkeleton total={4} />}>
+            <Review post={post} />
+          </Suspense>
         </div>
         <div className="flex w-full flex-col md:w-1/4">
           <div className="relative mb-4 w-full overflow-hidden rounded-md">
@@ -194,9 +194,9 @@ export default async function DetailPage({
             </div>
           </div>
 
-          {/* <Suspense fallback={<PostSkeleton />}> */}
-          <RelatedPost postId={post.id!} />
-          {/* </Suspense> */}
+          <Suspense fallback={<PostSkeleton />}>
+            <RelatedPost postId={post.id!} />
+          </Suspense>
           <FooterComponent />
         </div>
       </div>
