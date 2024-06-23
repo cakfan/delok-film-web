@@ -18,7 +18,7 @@ export const generateMetadata = ({
   description: "Find movies and dramas",
 });
 
-export default async function SearchPage({ searchParams: { q } }: SearchProps) {
+export default function SearchPage({ searchParams: { q } }: SearchProps) {
   return (
     <div className="min-h-screen w-full px-20 py-10">
       <SearchBox />
