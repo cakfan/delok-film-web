@@ -1,7 +1,6 @@
 import { getRelated } from "@/actions/post";
 import DFCard from "@/components/card";
 import { Each } from "@/components/ui/Each";
-import { PostWithMovieAndDrama } from "@/types/post";
 import React, { FC } from "react";
 
 interface RelatedPostItemProps {
