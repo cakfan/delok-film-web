@@ -37,9 +37,9 @@ export default async function CategoryPage({
       <CategoryList categories={categories} />
 
       <section id="posts" className="flex min-h-screen w-full justify-center">
-        <Suspense fallback={<PostSkeleton total={4} />}>
-          <PostResult posts={posts} category={q} />
-        </Suspense>
+        {/* <Suspense fallback={<PostSkeleton total={4} />}> */}
+        <PostResult posts={posts} category={q} />
+        {/* </Suspense> */}
       </section>
     </div>
   );

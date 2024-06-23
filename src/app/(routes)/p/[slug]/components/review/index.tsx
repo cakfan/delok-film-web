@@ -56,9 +56,9 @@ const Review: FC<ReviewProps> = async ({ post }) => {
 
         <ReviewForm id={id!} type={post.type} me={me} myReview={myReview} />
 
-        <Suspense fallback={<ReviewSkeleton total={4} />}>
-          <ReviewsList reviews={reviews} myReview={myReview} />
-        </Suspense>
+        {/* <Suspense fallback={<ReviewSkeleton total={4} />}> */}
+        <ReviewsList reviews={reviews} myReview={myReview} />
+        {/* </Suspense> */}
       </div>
     </section>
   );

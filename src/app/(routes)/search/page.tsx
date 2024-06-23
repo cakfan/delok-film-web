@@ -27,10 +27,10 @@ export default async function SearchPage({ searchParams: { q } }: SearchProps) {
     <div className="min-h-screen w-full px-20 py-10">
       <SearchBox />
       <div className="mt-14 flex w-full flex-col gap-10">
-        <Suspense fallback={<PostSkeleton total={4} />}>
-          <PeopleResult peoples={peoples} />
-          <PostResult posts={posts} />
-        </Suspense>
+        {/* <Suspense fallback={<PostSkeleton total={4} />}> */}
+        <PeopleResult peoples={peoples} />
+        <PostResult posts={posts} />
+        {/* </Suspense> */}
       </div>
     </div>
   );
