@@ -1,15 +1,17 @@
 import { FC } from "react";
 import { Each } from "@/components/ui/Each";
-import { People } from "@prisma/client";
 import Link from "next/link";
 import Image from "next/image";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
+import { searchPeople } from "@/actions/people";
 
 interface PeopleResultProps {
-  peoples: People[] | null;
+  q?: string;
 }
 
-const PeopleResult: FC<PeopleResultProps> = ({ peoples }) => {
+const PeopleResult: FC<PeopleResultProps> = async ({ q }) => {
+  const peoples = q ? await searchPeople({ query: q }) : [];
+
   if (!peoples?.length) return null;
 
   return (

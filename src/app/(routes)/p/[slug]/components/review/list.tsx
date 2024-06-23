@@ -1,17 +1,17 @@
+import { getMyReview } from "@/actions/review";
 import ReviewCard from "@/components/card/review";
 import { Each } from "@/components/ui/Each";
 import { ReviewWithAuthor } from "@/types/post/review";
+import { User } from "@prisma/client";
 import { FC } from "react";
 
 interface ReviewsListProps {
   reviews: ReviewWithAuthor[] | null;
-  myReview: ReviewWithAuthor | null;
+  me: User | null;
 }
 
-const ReviewsList: FC<ReviewsListProps> = ({ reviews, myReview }) => {
-  const filteredReviews = reviews?.filter(
-    (review) => review.id !== myReview?.id,
-  );
+const ReviewsList: FC<ReviewsListProps> = async ({ reviews, me }) => {
+  const filteredReviews = reviews?.filter((review) => review.userId !== me?.id);
 
   if (!reviews?.length) {
     return (

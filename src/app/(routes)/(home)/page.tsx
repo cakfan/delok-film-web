@@ -10,9 +10,9 @@ export default async function Home() {
       </div>
 
       <div className="w-full">
-        {/* <Suspense fallback={<PostSkeleton total={6} />}> */}
-        <HomePost />
-        {/* </Suspense> */}
+        <Suspense fallback={<PostSkeleton total={6} />}>
+          <HomePost />
+        </Suspense>
       </div>
     </div>
   );

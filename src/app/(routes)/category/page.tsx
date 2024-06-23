@@ -26,7 +26,6 @@ export default async function CategoryPage({
   searchParams: { q },
 }: CategoryProps) {
   const categories = await getAllCategories({});
-  const posts = q ? await getAllPost({ category: q }) : [];
   return (
     <div className="min-h-screen w-full px-20 py-10">
       <div className="prose dark:prose-invert">
@@ -37,9 +36,9 @@ export default async function CategoryPage({
       <CategoryList categories={categories} />
 
       <section id="posts" className="flex min-h-screen w-full justify-center">
-        {/* <Suspense fallback={<PostSkeleton total={4} />}> */}
-        <PostResult posts={posts} category={q} />
-        {/* </Suspense> */}
+        <Suspense fallback={<PostSkeleton total={4} />}>
+          <PostResult category={q} />
+        </Suspense>
       </section>
     </div>
   );

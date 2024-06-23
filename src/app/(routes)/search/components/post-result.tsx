@@ -1,13 +1,15 @@
 import { FC } from "react";
-import { PostWithMovieAndDrama } from "@/types/post";
 import { Each } from "@/components/ui/Each";
 import DFCard from "@/components/card";
+import { searchPost } from "@/actions/post";
 
 interface PostResultProps {
-  posts: PostWithMovieAndDrama[] | null;
+  q?: string;
 }
 
-const PostResult: FC<PostResultProps> = ({ posts }) => {
+const PostResult: FC<PostResultProps> = async ({ q }) => {
+  const posts = q ? await searchPost({ query: q }) : [];
+
   if (!posts?.length) return null;
 
   return (

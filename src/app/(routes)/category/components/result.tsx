@@ -1,14 +1,14 @@
 import { FC } from "react";
-import { PostWithMovieAndDrama } from "@/types/post";
 import { Each } from "@/components/ui/Each";
 import DFCard from "@/components/card";
+import { getAllPost } from "@/actions/post";
 
 interface PostResultProps {
-  posts: PostWithMovieAndDrama[] | null;
   category?: string;
 }
 
-const PostResult: FC<PostResultProps> = ({ posts, category }) => {
+const PostResult: FC<PostResultProps> = async ({ category }) => {
+  const posts = category ? await getAllPost({ category }) : [];
   if (posts?.length) {
     return (
       <div className="my-8 grid w-full grid-cols-2 gap-4 md:grid-cols-5 md:gap-y-14">
