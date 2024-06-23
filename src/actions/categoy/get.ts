@@ -1,6 +1,5 @@
 import prismadb from "@/config/prisma";
 import { Category } from "@prisma/client";
-import { toast } from "sonner";
 
 export const getCategory = async ({
   id,
@@ -10,8 +9,6 @@ export const getCategory = async ({
   slug?: string;
 }): Promise<Category | null> => {
   if (!id && !slug) {
-    const msg = "You have to provide an id or slug";
-    toast.error(msg);
     return null;
   }
 
