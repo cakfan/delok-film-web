@@ -195,7 +195,7 @@ export default async function DetailPage({
           </div>
 
           {/* <Suspense fallback={<PostSkeleton />}> */}
-          <RelatedPost postId={post.id!} />
+          {/* <RelatedPost postId={post.id!} /> */}
           {/* </Suspense> */}
           <FooterComponent />
         </div>
