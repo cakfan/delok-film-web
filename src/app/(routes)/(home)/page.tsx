@@ -12,15 +12,17 @@ export default async function Home() {
         <h1>Recent</h1>
       </div>
 
-      <Suspense fallback={<PostSkeleton total={6} />}>
-        <div className="my-8 grid w-full grid-cols-2 gap-4 md:grid-cols-4 md:gap-y-14 lg:grid-cols-5">
+      <div className="w-full">
+        <Suspense fallback={<PostSkeleton total={6} />}>
           {posts?.length ? (
-            <Each of={posts} render={(post) => <DFCard post={post} />} />
+            <div className="my-8 grid w-full grid-cols-2 gap-4 md:grid-cols-4 md:gap-y-14 lg:grid-cols-5">
+              <Each of={posts} render={(post) => <DFCard post={post} />} />
+            </div>
           ) : (
             <p>No post</p>
           )}
-        </div>
-      </Suspense>
+        </Suspense>
+      </div>
     </div>
   );
 }
