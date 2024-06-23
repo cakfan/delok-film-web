@@ -8,10 +8,12 @@ export const ReviewSchema = z.object({
   movieId: z.union([z.string().nullable(), z.undefined()]),
   dramaId: z.union([z.string().nullable(), z.undefined()]),
   userId: z.union([z.string(), z.undefined()]),
+  createdAt: z.union([z.date(), z.undefined()]),
+  updatedAt: z.union([z.date(), z.undefined()]),
 });
 
 export type ReviewFormValues = z.infer<typeof ReviewSchema>;
 
-export interface ReviewWithAuthor extends Review {
+export interface ReviewWithAuthor extends ReviewFormValues {
   author: User;
 }

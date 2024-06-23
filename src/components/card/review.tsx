@@ -28,7 +28,7 @@ const ReviewCard: FC<ReviewCardProps> = ({ data, isMine = false }) => {
   const onDelete = async () => {
     try {
       setIsLoading(true);
-      const response = await deleteReview(data.id);
+      const response = await deleteReview(data.id!);
       if (response.status === "error") {
         toast.error(response.message);
         return;
@@ -39,6 +39,7 @@ const ReviewCard: FC<ReviewCardProps> = ({ data, isMine = false }) => {
       toast.error("Something went wrong");
     } finally {
       setIsLoading(false);
+      setOpen(false);
     }
   };
   return (
@@ -90,7 +91,7 @@ const ReviewCard: FC<ReviewCardProps> = ({ data, isMine = false }) => {
               disabled
             />
             <span className="text-xs text-foreground/50">
-              {format(data.createdAt, "PP", { locale: enUS })}
+              {format(data.createdAt!, "PP", { locale: enUS })}
             </span>
           </div>
           <div

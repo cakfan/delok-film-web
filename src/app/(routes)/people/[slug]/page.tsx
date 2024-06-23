@@ -11,23 +11,28 @@ import { getPeople } from "@/actions/people";
 import { getAge } from "@/actions/utils";
 import PostResult from "./components/post-result";
 
-interface DetailPageProps {
+interface DetailPeopleProps {
   params: { slug: string };
 }
 
 export async function generateMetadata({
   params: { slug },
-}: DetailPageProps): Promise<Metadata> {
+}: DetailPeopleProps): Promise<Metadata> {
   const people = await getPeople({ slug });
   return {
-    title: `${people?.name} ${people?.nativeName ? `(${people.nativeName})` : ""} - Delok Film`,
+    title: `${people?.name} ${people?.nativeName ? `(${people.nativeName})` : ""}`,
     description: people?.bio,
+    openGraph: {
+      title: `${people?.name} ${people?.nativeName ? `(${people.nativeName})` : ""}`,
+      description: people?.bio,
+      images: [people?.avatar ?? "/default.png"],
+    },
   };
 }
 
-export default async function DetailPage({
+export default async function DetailPeople({
   params: { slug },
-}: DetailPageProps) {
+}: DetailPeopleProps) {
   const people = await getPeople({ slug });
 
   if (!people) notFound();

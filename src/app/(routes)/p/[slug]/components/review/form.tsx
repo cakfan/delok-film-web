@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect, useOptimistic, useState } from "react";
 import { User } from "@prisma/client";
 import { Loader2, Send } from "lucide-react";
 import { toast } from "sonner";
@@ -38,6 +38,12 @@ interface ReviewFormProps {
 const ReviewForm: FC<ReviewFormProps> = ({ id, type, me, myReview }) => {
   const [isMounted, setIsMounted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [optimisticMyReview, addOptimisticMyReview] = useOptimistic(
+    myReview,
+    (_state, newReview: ReviewWithAuthor) => {
+      return newReview;
+    },
+  );
   const router = useRouter();
 
   let defaultValues = {
@@ -61,6 +67,12 @@ const ReviewForm: FC<ReviewFormProps> = ({ id, type, me, myReview }) => {
     try {
       setIsLoading(true);
       const validateData = ReviewSchema.parse(data);
+      addOptimisticMyReview({
+        ...validateData,
+        author: me!,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      });
       const response = await createReview(validateData);
       if (response.status === "error") {
         toast.error(response.message);
@@ -80,10 +92,10 @@ const ReviewForm: FC<ReviewFormProps> = ({ id, type, me, myReview }) => {
     return <ReviewSkeleton />;
   }
 
-  if (myReview) {
+  if (optimisticMyReview) {
     return (
       <div className="mt-8">
-        <ReviewCard isMine data={myReview} />
+        <ReviewCard isMine data={optimisticMyReview} />
       </div>
     );
   }

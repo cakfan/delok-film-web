@@ -27,8 +27,13 @@ export async function generateMetadata({
 }: DetailPageProps): Promise<Metadata> {
   const post = await getPost({ slug });
   return {
-    title: `${post?.title} - Delok Film`,
+    title: post?.title,
     description: post?.content,
+    openGraph: {
+      title: post?.title,
+      description: post?.content,
+      images: [post?.drama?.poster ?? post?.movie?.poster ?? "/default.png"],
+    },
   };
 }
 

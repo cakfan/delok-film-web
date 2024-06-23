@@ -31,7 +31,7 @@ const Review: FC<ReviewProps> = async ({ post }) => {
         </div>
         <div className="prose flex w-full items-center gap-8 dark:prose-invert lg:prose-xl">
           <Ratings
-            rating={rating?.average ?? 0}
+            rating={reviews?.length ? rating?.average ?? 0 : 0}
             total={reviews?.length}
             variant="yellow"
             disabled
@@ -44,8 +44,8 @@ const Review: FC<ReviewProps> = async ({ post }) => {
                 <span className="text-sm font-medium">{5 - i}</span>
                 <Progress
                   value={
-                    (rating?.ratingCounts?.[5 - i]! / reviews?.length!) * 100 ??
-                    0
+                    (rating?.ratingCounts?.[5 - i]! / (reviews?.length ?? 0)) *
+                      100 ?? 0
                   }
                   className="h-2"
                 />
