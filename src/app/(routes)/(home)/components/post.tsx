@@ -1,13 +1,9 @@
-import { FC } from "react";
-import { PostWithMovieAndDrama } from "@/types/post";
 import { Each } from "@/components/ui/Each";
 import DFCard from "@/components/card";
+import { getAllPost } from "@/actions/post";
 
-interface HomePostProps {
-  posts: PostWithMovieAndDrama[] | null;
-}
-
-const HomePost: FC<HomePostProps> = ({ posts }) => {
+const HomePost = async () => {
+  const posts = await getAllPost({});
   if (posts?.length) {
     return (
       <div className="my-8 grid w-full grid-cols-2 gap-4 md:grid-cols-4 md:gap-y-14 lg:grid-cols-5">
