@@ -53,9 +53,6 @@ export default async function DetailPeople({
           />
 
           <PostResult posts={posts} />
-
-          {/* <DetailCast post={post} />
-          <Review post={post} /> */}
         </div>
         <div className="flex w-full flex-col md:w-1/4">
           <div className="relative mb-4 w-full overflow-hidden rounded-md">

@@ -3,6 +3,7 @@ import DFCard from "@/components/card";
 import PostSkeleton from "@/components/card/skeleton";
 import { Each } from "@/components/ui/Each";
 import { Suspense } from "react";
+import HomePost from "./components/post";
 
 export default async function Home() {
   const posts = await getAllPost({});
@@ -14,13 +15,7 @@ export default async function Home() {
 
       <div className="w-full">
         <Suspense fallback={<PostSkeleton total={6} />}>
-          {posts?.length ? (
-            <div className="my-8 grid w-full grid-cols-2 gap-4 md:grid-cols-4 md:gap-y-14 lg:grid-cols-5">
-              <Each of={posts} render={(post) => <DFCard post={post} />} />
-            </div>
-          ) : (
-            <p>No post</p>
-          )}
+          <HomePost posts={posts} />
         </Suspense>
       </div>
     </div>
