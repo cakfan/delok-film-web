@@ -125,7 +125,7 @@ export default async function DetailPage({
           <DetailCast post={post} />
 
           {/* <Suspense fallback={<ReviewSkeleton total={4} />}> */}
-          {/* <Review post={post} /> */}
+          <Review post={post} />
           {/* </Suspense> */}
         </div>
         <div className="flex w-full flex-col md:w-1/4">
