@@ -1,4 +1,4 @@
-import { FC, Suspense } from "react";
+import { FC } from "react";
 import { getPost } from "@/actions/post";
 import { calculateAverageRating } from "@/actions/review";
 import PostSkeleton from "@/components/card/skeleton";
@@ -104,9 +104,9 @@ const PostComponent: FC<PostProps> = async ({ slug }) => {
         </div>
         <DetailCast post={post} />
 
-        <Suspense fallback={<ReviewSkeleton total={4} />}>
-          <Review post={post} />
-        </Suspense>
+        {/* <Suspense fallback={<ReviewSkeleton total={4} />}> */}
+        <Review post={post} />
+        {/* </Suspense> */}
       </div>
       <div className="flex w-full flex-col md:w-1/4">
         <div className="relative mb-4 w-full overflow-hidden rounded-md">
@@ -171,9 +171,9 @@ const PostComponent: FC<PostProps> = async ({ slug }) => {
           </div>
         </div>
 
-        <Suspense fallback={<PostSkeleton />}>
-          <RelatedPost postId={post.id!} />
-        </Suspense>
+        {/* <Suspense fallback={<PostSkeleton />}> */}
+        <RelatedPost postId={post.id!} />
+        {/* </Suspense> */}
         <FooterComponent />
       </div>
     </div>
