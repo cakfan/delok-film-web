@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { getAllCategories } from "@/actions/categoy";
-import { Each } from "@/components/ui/Each";
 import { getAllPost } from "@/actions/post";
-import DFCard from "@/components/card";
 import CategoryList from "./components/client";
 import PostResult from "./components/result";
 import { Suspense } from "react";
@@ -14,10 +12,10 @@ interface CategoryProps {
   };
 }
 
-export const metadata: Metadata = {
-  title: "Category",
+export const metadata = ({ searchParams: { q } }: CategoryProps): Metadata => ({
+  title: q ? q : "Category",
   description: "Find category for movies and dramas",
-};
+});
 
 export default async function CategoryPage({
   searchParams: { q },

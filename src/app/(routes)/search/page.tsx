@@ -13,10 +13,10 @@ interface SearchProps {
   };
 }
 
-export const metadata: Metadata = {
-  title: "Search",
+export const metadata = ({ searchParams: { q } }: SearchProps): Metadata => ({
+  title: q ? `Search "${q}"` : "Search",
   description: "Find movies and dramas",
-};
+});
 
 export default async function SearchPage({ searchParams: { q } }: SearchProps) {
   const posts = q ? await searchPost({ query: q }) : [];
