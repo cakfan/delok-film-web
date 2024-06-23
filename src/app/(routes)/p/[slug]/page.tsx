@@ -18,6 +18,9 @@ import { cn } from "@/lib/utils";
 import { CalendarFoldIcon } from "lucide-react";
 import RelatedPost from "./components/related";
 import FooterComponent from "@/components/footer";
+import PostSkeleton from "@/components/card/skeleton";
+import { Suspense } from "react";
+import ReviewSkeleton from "./components/review/skeleton";
 
 interface DetailPageProps {
   params: { slug: string };
@@ -120,7 +123,10 @@ export default async function DetailPage({
             />
           </div>
           <DetailCast post={post} />
-          <Review post={post} />
+
+          <Suspense fallback={<ReviewSkeleton total={4} />}>
+            <Review post={post} />
+          </Suspense>
         </div>
         <div className="flex w-full flex-col md:w-1/4">
           <div className="relative mb-4 w-full overflow-hidden rounded-md">
@@ -187,7 +193,10 @@ export default async function DetailPage({
               </span>
             </div>
           </div>
-          <RelatedPost postId={post.id!} />
+
+          <Suspense fallback={<PostSkeleton />}>
+            <RelatedPost postId={post.id!} />
+          </Suspense>
           <FooterComponent />
         </div>
       </div>
