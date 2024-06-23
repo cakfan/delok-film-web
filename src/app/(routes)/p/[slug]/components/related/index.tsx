@@ -1,7 +1,4 @@
 import { FC, Suspense } from "react";
-import { getRelated } from "@/actions/post";
-import DFCard from "@/components/card";
-import { Each } from "@/components/ui/Each";
 import PostSkeleton from "@/components/card/skeleton";
 import RelatedPostItem from "./post";
 
