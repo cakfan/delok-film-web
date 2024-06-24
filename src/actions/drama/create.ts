@@ -127,6 +127,7 @@ export const createDrama = async (data: DramaFormValues) => {
       message: "Drama created",
     };
   } catch (error) {
+    console.log(error);
     return {
       status: "error",
       message: "Something went wrong",
