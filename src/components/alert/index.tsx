@@ -37,7 +37,13 @@ export const AlertModal: React.FC<AlertModalProps> = ({
       onClose={onClose}
     >
       <div className="flex w-full items-center justify-end space-x-2 pt-6">
-        <Button disabled={loading} variant="destructive" onClick={onConfirm}>
+        <Button
+          disabled={loading}
+          variant="destructive"
+          onClick={onConfirm}
+          size="sm"
+          className="rounded-full"
+        >
           {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
           Continue
         </Button>

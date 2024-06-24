@@ -28,39 +28,12 @@ export const createDrama = async (data: DramaFormValues) => {
     }
 
     // Check if related categories exist
-    const categoryIds =
-      data.drama?.categories?.map((category) => category.id) || [];
-    const existingCategories = await prismadb.category.findMany({
-      where: {
-        id: { in: categoryIds },
-      },
-      select: { id: true },
-    });
-    const missingCategories = categoryIds.filter(
-      (id) => !existingCategories.some((cat) => cat.id === id),
-    );
+    const addCategories =
+      data.drama?.categories?.map((category) => ({ id: category.id })) || [];
 
     // Check if related countries exist
-    const countryIds =
-      data.drama?.countries?.map((country) => country.id) || [];
-    const existingCountries = await prismadb.country.findMany({
-      where: {
-        id: { in: countryIds },
-      },
-      select: { id: true },
-    });
-    const missingCountries = countryIds.filter(
-      (id) => !existingCountries.some((country) => country.id === id),
-    );
-
-    // Handle missing records
-    if (missingCategories.length > 0 || missingCountries.length > 0) {
-      return {
-        message: "Related records not found",
-        missingCategories,
-        missingCountries,
-      };
-    }
+    const addCountries =
+      data.drama?.countries?.map((country) => ({ id: country.id })) || [];
 
     // Prepare data for nested creation
     const createDramaData = data.drama
@@ -76,12 +49,10 @@ export const createDrama = async (data: DramaFormValues) => {
           airedEnd: data.drama.airedEnd ?? undefined,
           airedOn: data.drama.airedOn ?? undefined,
           categories: {
-            connect: existingCategories.map((category) => ({
-              id: category.id,
-            })),
+            connect: addCategories,
           },
           countries: {
-            connect: existingCountries.map((country) => ({ id: country.id })),
+            connect: addCountries,
           },
           casts: {
             create:
