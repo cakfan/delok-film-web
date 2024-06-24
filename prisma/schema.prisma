@@ -42,6 +42,7 @@ model User {
   updatedAt DateTime @updatedAt
 
   @@unique([email, username])
+  @@map("users")
 }
 
 model Account {
@@ -63,6 +64,7 @@ model Account {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@id([provider, providerAccountId])
+  @@map("accounts")
 }
 
 model Country {
@@ -75,6 +77,8 @@ model Country {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@map("country")
 }
 
 model Category {
@@ -86,6 +90,8 @@ model Category {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@map("category")
 }
 
 model People {
@@ -105,6 +111,8 @@ model People {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@map("peoples")
 }
 
 model Post {
@@ -122,6 +130,8 @@ model Post {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@map("posts")
 }
 
 enum PostStatus {
@@ -139,6 +149,8 @@ model Cast {
   movieId       String?
   drama         Drama?  @relation(fields: [dramaId], references: [id], onDelete: Cascade)
   dramaId       String?
+
+  @@map("casts")
 }
 
 model Movie {
@@ -155,6 +167,8 @@ model Movie {
   countries     Country[]
   casts         Cast[]
   reviews       Review[]
+
+  @@map("movies")
 }
 
 model Drama {
@@ -175,6 +189,8 @@ model Drama {
   contentRating String?
   screenWriter  String?
   reviews       Review[]
+
+  @@map("dramas")
 }
 
 model Review {
@@ -190,4 +206,6 @@ model Review {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@map("reviews")
 }
