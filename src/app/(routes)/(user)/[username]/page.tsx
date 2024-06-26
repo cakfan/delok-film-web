@@ -31,7 +31,7 @@ export default async function UsernamePage({
   const isMe = session?.user.id === user.id;
 
   return (
-    <div className="flex min-h-screen w-full flex-col justify-between gap-4 p-10 lg:px-20">
+    <div className="flex w-full flex-col justify-between gap-4 p-10 lg:px-20">
       <div className="flex w-full items-center justify-start">
         <div className="flex flex-1 items-center gap-4">
           <Avatar className="h-24 w-24">
