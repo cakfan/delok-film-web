@@ -1,14 +1,14 @@
 import { FC } from "react";
 import { Each } from "@/components/ui/Each";
 import DFCard from "@/components/card";
-import { getPostByCategory } from "@/actions/post";
+import { getPostByCountry } from "@/actions/post";
 
 interface PostResultProps {
-  category?: string;
+  country?: string;
 }
 
-const PostResult: FC<PostResultProps> = async ({ category }) => {
-  const posts = category ? await getPostByCategory({ category }) : [];
+const PostResult: FC<PostResultProps> = async ({ country }) => {
+  const posts = country ? await getPostByCountry({ country }) : [];
   if (posts?.length) {
     return (
       <div className="my-8 grid w-full grid-cols-2 gap-4 md:grid-cols-5 md:gap-y-14">
@@ -19,7 +19,7 @@ const PostResult: FC<PostResultProps> = async ({ category }) => {
 
   return (
     <div className="prose w-full dark:prose-invert lg:prose-xl">
-      <p>{category ? "No post" : "Select category"}</p>
+      <p>{country ? "No post" : "Select country"}</p>
     </div>
   );
 };

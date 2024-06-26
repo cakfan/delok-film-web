@@ -5,18 +5,14 @@ interface PostProps {
   skip?: number;
   take?: number;
   category?: string;
-  country?: string;
-  query?: string;
   sortBy?: "update" | "create";
   sortOrder?: "asc" | "desc";
 }
 
-export const getAllPost = async ({
+export const getPostByCategory = async ({
   skip = 0,
   take = 10,
   category,
-  country,
-  query,
   sortBy = "update",
   sortOrder = "desc",
 }: PostProps): Promise<PostWithAuthors[] | null> => {
@@ -31,13 +27,8 @@ export const getAllPost = async ({
     where: {
       status: "public",
       OR: [
-        { title: { contains: query ?? undefined, mode: "insensitive" } },
-        { content: { contains: query ?? undefined, mode: "insensitive" } },
         {
           categories: { some: { slug: category ?? undefined } },
-        },
-        {
-          countries: { some: { slug: country ?? undefined } },
         },
       ],
     },
