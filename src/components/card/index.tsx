@@ -1,4 +1,4 @@
-import { PostWithMovieAndDrama } from "@/types/post";
+import { PostWithAuthors } from "@/types/post";
 import { FC } from "react";
 import MovieCard from "./movie";
 import DramaCard from "./drama";
@@ -6,14 +6,12 @@ import { calculateAverageRating } from "@/actions/review";
 import { cn } from "@/lib/utils";
 
 interface DFCardProps {
-  post: PostWithMovieAndDrama;
+  post: PostWithAuthors;
   className?: string;
 }
 
 const DFCard: FC<DFCardProps> = async ({ post, className }) => {
-  const rating = post.drama?.id
-    ? await calculateAverageRating(post.drama.id)
-    : await calculateAverageRating(post.movie?.id!);
+  const rating = await calculateAverageRating(post.id!);
   return (
     <div
       className={cn("group transition-all duration-300 ease-in-out", className)}

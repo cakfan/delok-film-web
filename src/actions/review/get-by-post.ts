@@ -6,7 +6,7 @@ export const getReviews = async (
 ): Promise<ReviewWithAuthor[] | null> => {
   const reviews = await prismadb.review.findMany({
     where: {
-      OR: [{ dramaId: id }, { movieId: id }],
+      postId: id,
     },
     orderBy: {
       updatedAt: "desc",

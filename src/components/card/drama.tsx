@@ -1,7 +1,7 @@
 "use client";
 
 import React, { FC } from "react";
-import { PostWithMovieAndDrama } from "@/types/post";
+import { PostWithAuthors } from "@/types/post";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import Image from "next/image";
 import { Button } from "../ui/button";
@@ -11,7 +11,7 @@ import { BrandIcons } from "../icons";
 import TrailerDialog from "../trailer";
 
 interface DramaCardProps {
-  post: PostWithMovieAndDrama;
+  post: PostWithAuthors;
   rating: number;
 }
 
@@ -26,7 +26,7 @@ const DramaCard: FC<DramaCardProps> = ({ post, rating }) => {
         <div className="relative h-fit w-full overflow-hidden rounded-md">
           <AspectRatio ratio={9 / 16}>
             <Image
-              src={post.drama?.poster ?? "/no-image.png"}
+              src={post.poster ?? "/no-image.png"}
               alt={post.title}
               fill
               className="-z-10 m-0 overflow-hidden rounded-md object-cover transition-all duration-300 group-hover:scale-105"
@@ -48,7 +48,7 @@ const DramaCard: FC<DramaCardProps> = ({ post, rating }) => {
         </div>
       </Link>
       <div className="w-full p-2">
-        <TrailerDialog url={post.drama?.trailer} title={post.title} />
+        <TrailerDialog url={post.trailer} title={post.title} />
       </div>
     </div>
   );

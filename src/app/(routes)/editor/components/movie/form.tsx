@@ -67,17 +67,15 @@ const FormMovie: React.FC<FormMovieProps> = ({
       status: "draft",
       type: "movie",
       nativeTitle: "",
-      movie: {
-        poster: "",
-        director: "",
-        trailer: "",
-        contentRating: "",
-        screenWriter: "",
-        releaseDate: new Date(),
-        categories: [],
-        countries: [],
-        casts: [],
-      },
+      poster: "",
+      director: "",
+      trailer: "",
+      contentRating: "",
+      screenWriter: "",
+      releaseDate: new Date(),
+      categories: [],
+      countries: [],
+      casts: [],
     },
   });
 
@@ -92,13 +90,12 @@ const FormMovie: React.FC<FormMovieProps> = ({
 
   const onSubmit = async (data: MovieFormValues) => {
     const validateData = MovieSchema.parse(data);
-    console.log("client:", validateData.movie?.countries);
     try {
       setIsLoading(true);
 
-      if (validateData.movie?.poster) {
+      if (validateData.poster) {
         await edgestore.publicFiles.confirmUpload({
-          url: validateData.movie.poster,
+          url: validateData.poster,
         });
       }
 
@@ -150,7 +147,7 @@ const FormMovie: React.FC<FormMovieProps> = ({
           onSubmit={form.handleSubmit(onSubmit)}
           className="w-full space-y-4"
         >
-          <div className="sticky z-20 flex items-center justify-between bg-background pb-2">
+          <div className="sticky top-0 z-20 flex items-center justify-between bg-background py-2">
             <Heading showBackButton title={title} description={description} />
             <div className="flex items-center gap-4">
               {initialData && (
@@ -279,6 +276,25 @@ const FormMovie: React.FC<FormMovieProps> = ({
               />
               <FormField
                 control={form.control}
+                name="alsoKnownAs"
+                render={({ field }) => (
+                  <FormItem className="md:w-[240px]">
+                    <FormLabel>Also known as</FormLabel>
+                    <FormControl>
+                      <Input
+                        disabled={isLoading}
+                        placeholder="Ikoku Nikki"
+                        {...field}
+                        value={field.value || "" || undefined}
+                        onChange={field.onChange}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
                 name="nativeTitle"
                 render={({ field }) => (
                   <FormItem className="md:w-[240px]">
@@ -298,7 +314,7 @@ const FormMovie: React.FC<FormMovieProps> = ({
               />
               <FormField
                 control={form.control}
-                name="movie.director"
+                name="director"
                 render={({ field }) => (
                   <FormItem className="md:w-[240px]">
                     <FormLabel>Director</FormLabel>
@@ -307,6 +323,7 @@ const FormMovie: React.FC<FormMovieProps> = ({
                         disabled={isLoading}
                         placeholder="Director"
                         {...field}
+                        value={field.value ?? undefined}
                       />
                     </FormControl>
                     <FormMessage />
@@ -315,7 +332,7 @@ const FormMovie: React.FC<FormMovieProps> = ({
               />
               <FormField
                 control={form.control}
-                name="movie.screenWriter"
+                name="screenWriter"
                 render={({ field }) => (
                   <FormItem className="md:w-[240px]">
                     <FormLabel>Screen Writer</FormLabel>
@@ -333,7 +350,7 @@ const FormMovie: React.FC<FormMovieProps> = ({
               />
               <FormField
                 control={form.control}
-                name="movie.contentRating"
+                name="contentRating"
                 render={({ field }) => (
                   <FormItem className="md:w-[240px]">
                     <FormLabel>Content Rating</FormLabel>
@@ -351,7 +368,7 @@ const FormMovie: React.FC<FormMovieProps> = ({
               />
               <FormField
                 control={form.control}
-                name="movie.trailer"
+                name="trailer"
                 render={({ field }) => (
                   <FormItem className="md:w-[240px]">
                     <FormLabel>Trailer</FormLabel>

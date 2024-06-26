@@ -19,8 +19,8 @@ const MobileLink = ({ item }: { item: SidebarNavItem }) => {
           {item.isProfile ? (
             <Image
               className="rounded-full"
-              width={20}
-              height={20}
+              width={24}
+              height={24}
               objectFit="cover"
               src={item.icon as string}
               alt={item.title}

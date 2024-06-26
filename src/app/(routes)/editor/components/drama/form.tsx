@@ -67,21 +67,19 @@ const FormDrama: React.FC<FormDramaProps> = ({
       status: "draft",
       type: "drama",
       nativeTitle: "",
-      drama: {
-        poster: "",
-        director: "",
-        trailer: "",
-        contentRating: "",
-        screenWriter: "",
-        episodes: 0,
-        network: "",
-        airedStart: new Date(),
-        airedEnd: new Date(),
-        airedOn: "",
-        categories: [],
-        countries: [],
-        casts: [],
-      },
+      poster: "",
+      director: "",
+      trailer: "",
+      contentRating: "",
+      screenWriter: "",
+      episodes: 0,
+      network: "",
+      airedStart: new Date(),
+      airedEnd: new Date(),
+      airedOn: "",
+      categories: [],
+      countries: [],
+      casts: [],
     },
   });
 
@@ -95,13 +93,14 @@ const FormDrama: React.FC<FormDramaProps> = ({
   });
 
   const onSubmit = async (data: DramaFormValues) => {
-    const validateData = DramaSchema.parse(data);
     try {
+      const validateData = DramaSchema.parse(data);
+      console.log("drama:", validateData);
       setIsLoading(true);
 
-      if (validateData.drama?.poster) {
+      if (validateData.poster) {
         await edgestore.publicFiles.confirmUpload({
-          url: validateData.drama.poster,
+          url: validateData.poster,
         });
       }
 
@@ -153,7 +152,7 @@ const FormDrama: React.FC<FormDramaProps> = ({
           onSubmit={form.handleSubmit(onSubmit)}
           className="w-full space-y-4"
         >
-          <div className="sticky z-20 flex items-center justify-between bg-background pb-2">
+          <div className="sticky top-0 z-20 flex items-center justify-between bg-background py-2">
             <Heading showBackButton title={title} description={description} />
             <div className="flex items-center gap-4">
               {initialData && (
@@ -282,6 +281,25 @@ const FormDrama: React.FC<FormDramaProps> = ({
               />
               <FormField
                 control={form.control}
+                name="alsoKnownAs"
+                render={({ field }) => (
+                  <FormItem className="md:w-[240px]">
+                    <FormLabel>Also known as</FormLabel>
+                    <FormControl>
+                      <Input
+                        disabled={isLoading}
+                        placeholder="Nigeru wa"
+                        {...field}
+                        value={field.value || "" || undefined}
+                        onChange={field.onChange}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
                 name="nativeTitle"
                 render={({ field }) => (
                   <FormItem className="md:w-[240px]">
@@ -301,7 +319,7 @@ const FormDrama: React.FC<FormDramaProps> = ({
               />
               <FormField
                 control={form.control}
-                name="drama.director"
+                name="director"
                 render={({ field }) => (
                   <FormItem className="md:w-[240px]">
                     <FormLabel>Director</FormLabel>
@@ -310,6 +328,7 @@ const FormDrama: React.FC<FormDramaProps> = ({
                         disabled={isLoading}
                         placeholder="Director"
                         {...field}
+                        value={field.value ?? undefined}
                       />
                     </FormControl>
                     <FormMessage />
@@ -318,7 +337,7 @@ const FormDrama: React.FC<FormDramaProps> = ({
               />
               <FormField
                 control={form.control}
-                name="drama.screenWriter"
+                name="screenWriter"
                 render={({ field }) => (
                   <FormItem className="md:w-[240px]">
                     <FormLabel>Screen Writer</FormLabel>
@@ -336,7 +355,7 @@ const FormDrama: React.FC<FormDramaProps> = ({
               />
               <FormField
                 control={form.control}
-                name="drama.episodes"
+                name="episodes"
                 render={({ field }) => (
                   <FormItem className="md:w-[240px]">
                     <FormLabel>Episodes</FormLabel>
@@ -355,7 +374,7 @@ const FormDrama: React.FC<FormDramaProps> = ({
               />
               <FormField
                 control={form.control}
-                name="drama.contentRating"
+                name="contentRating"
                 render={({ field }) => (
                   <FormItem className="md:w-[240px]">
                     <FormLabel>Content Rating</FormLabel>
@@ -373,7 +392,7 @@ const FormDrama: React.FC<FormDramaProps> = ({
               />
               <FormField
                 control={form.control}
-                name="drama.trailer"
+                name="trailer"
                 render={({ field }) => (
                   <FormItem className="md:w-[240px]">
                     <FormLabel>Trailer</FormLabel>
@@ -391,7 +410,7 @@ const FormDrama: React.FC<FormDramaProps> = ({
               />
               <FormField
                 control={form.control}
-                name="drama.network"
+                name="network"
                 render={({ field }) => (
                   <FormItem className="md:w-[240px]">
                     <FormLabel>Network</FormLabel>
@@ -409,7 +428,7 @@ const FormDrama: React.FC<FormDramaProps> = ({
               />
               <FormField
                 control={form.control}
-                name="drama.airedOn"
+                name="airedOn"
                 render={({ field }) => (
                   <FormItem className="md:w-[240px]">
                     <FormLabel>Aired on</FormLabel>

@@ -29,40 +29,11 @@ export const createDrama = async (data: DramaFormValues) => {
 
     // Check if related categories exist
     const addCategories =
-      data.drama?.categories?.map((category) => ({ id: category.id })) || [];
+      data.categories?.map((category) => ({ id: category.id })) || [];
 
     // Check if related countries exist
     const addCountries =
-      data.drama?.countries?.map((country) => ({ id: country.id })) || [];
-
-    // Prepare data for nested creation
-    const createDramaData = data.drama
-      ? {
-          director: data.drama.director,
-          poster: data.drama.poster ?? undefined,
-          trailer: data.drama.trailer ?? undefined,
-          contentRating: data.drama.contentRating ?? undefined,
-          screenWriter: data.drama.screenWriter ?? undefined,
-          episodes: data.drama.episodes,
-          network: data.drama.network ?? undefined,
-          airedStart: data.drama.airedStart ?? undefined,
-          airedEnd: data.drama.airedEnd ?? undefined,
-          airedOn: data.drama.airedOn ?? undefined,
-          categories: {
-            connect: addCategories,
-          },
-          countries: {
-            connect: addCountries,
-          },
-          casts: {
-            create:
-              data.drama.casts?.map((cast) => ({
-                peopleId: cast.peopleId,
-                characterName: cast.characterName ?? undefined,
-              })) ?? [],
-          },
-        }
-      : undefined;
+      data.countries?.map((country) => ({ id: country.id })) || [];
 
     const me = await getMe();
 
@@ -72,25 +43,33 @@ export const createDrama = async (data: DramaFormValues) => {
       data: {
         ...drama,
         status: data.status as PostStatus,
-        lastEditById: me?.id!,
+        lastEditBy: me?.id!,
         authors: {
           connect: [{ id: me?.id }],
         },
-        drama: createDramaData ? { create: createDramaData } : undefined,
+        categories: {
+          connect: addCategories,
+        },
+        countries: {
+          connect: addCountries,
+        },
+        casts: {
+          create:
+            data.casts?.map((cast) => ({
+              peopleId: cast.peopleId,
+              characterName: cast.characterName ?? undefined,
+            })) ?? [],
+        },
       },
       include: {
         authors: true,
-        drama: {
+        casts: {
           include: {
-            casts: {
-              include: {
-                people: true,
-              },
-            },
-            categories: true,
-            countries: true,
+            people: true,
           },
         },
+        categories: true,
+        countries: true,
       },
     });
     return {

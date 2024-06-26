@@ -37,7 +37,7 @@ const DramaCasts: FC<DramaCastsProps> = ({
       peopleId: string;
       people: { name?: string | null; avatar?: string | null };
     }[]
-  >(initialData?.drama?.casts ?? []);
+  >(initialData?.casts ?? []);
   const [castSuggestion, setCastSuggestion] = useState<People[]>([]);
   const [selectedPeople, setSelectedPeople] = useState<People | null>(null);
   const [characterName, setCharacterName] = useState("");
@@ -46,7 +46,7 @@ const DramaCasts: FC<DramaCastsProps> = ({
   return (
     <FormField
       control={form.control}
-      name="drama.casts"
+      name="casts"
       render={({ field }) => (
         <FormItem>
           <FormLabel>Casts</FormLabel>
@@ -189,6 +189,7 @@ const DramaCasts: FC<DramaCastsProps> = ({
                 <Button
                   type="button"
                   variant="secondary"
+                  className="rounded-full"
                   onClick={() => {
                     if (!selectedPeople) {
                       toast.error("Please select people");

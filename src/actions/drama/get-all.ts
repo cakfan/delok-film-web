@@ -1,9 +1,7 @@
 import prismadb from "@/config/prisma";
-import { PostWithDramaAndCountries } from "@/types/post/drama";
+import { DramaWithAuthor } from "@/types/post/drama";
 
-export const getAllDramas = async (): Promise<
-  PostWithDramaAndCountries[] | null
-> => {
+export const getAllDramas = async (): Promise<DramaWithAuthor[] | null> => {
   const dramas = await prismadb.post.findMany({
     where: {
       type: "drama",
@@ -12,13 +10,23 @@ export const getAllDramas = async (): Promise<
       updatedAt: "desc",
     },
     include: {
-      drama: {
+      authors: true,
+      casts: {
         include: {
-          countries: true,
+          people: true,
         },
       },
+      categories: true,
+      countries: true,
     },
   });
 
-  return dramas;
+  if (!dramas.length) return null;
+
+  const dramasValues: DramaWithAuthor[] = dramas.map((drama) => ({
+    ...drama,
+    type: "drama",
+  }));
+
+  return dramasValues;
 };

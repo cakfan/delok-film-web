@@ -45,84 +45,61 @@ export const updateDrama = async (data: DramaFormValues) => {
 
     // Check if related categories exist
     const newCategories =
-      data.drama?.categories
-        ?.filter(
-          (category) => !checkDrama.drama?.categories?.includes(category),
-        )
+      data.categories
+        ?.filter((category) => !checkDrama.categories?.includes(category))
         .map((category) => ({ id: category.id })) || [];
-    const deletedCategories = checkDrama.drama?.categories
+    const deletedCategories = checkDrama.categories
       ?.filter((category) => !newCategories.includes(category))
       .map((category) => ({ id: category.id }));
 
     // Check if related countries exist
     const newCountries =
-      data.drama?.countries
-        ?.filter((country) => !checkDrama.drama?.countries?.includes(country))
+      data.countries
+        ?.filter((country) => !checkDrama.countries?.includes(country))
         .map((country) => ({ id: country.id })) || [];
-    const deletedCountries = checkDrama.drama?.countries
+    const deletedCountries = checkDrama.countries
       ?.filter((country) => !newCountries.includes(country))
       .map((country) => ({ id: country.id }));
 
     // Formatted casts
-    const newCasts = data.drama?.casts?.map((cast) => ({
+    const newCasts = data.casts?.map((cast) => ({
       peopleId: cast.peopleId,
       characterName: cast.characterName,
     }));
 
     const { id, status, ...drama } = data;
 
-    // Prepare data for nested creation
-    const updateDramaData = data.drama
-      ? {
-          director: data.drama.director,
-          poster: data.drama.poster ?? undefined,
-          trailer: data.drama.trailer ?? undefined,
-          contentRating: data.drama.contentRating ?? undefined,
-          screenWriter: data.drama.screenWriter ?? undefined,
-          episodes: data.drama.episodes,
-          network: data.drama.network ?? undefined,
-          airedStart: data.drama.airedStart ?? undefined,
-          airedEnd: data.drama.airedEnd ?? undefined,
-          airedOn: data.drama.airedOn ?? undefined,
-          categories: {
-            disconnect: deletedCategories,
-            set: newCategories ?? undefined,
-          },
-          countries: {
-            disconnect: deletedCountries,
-            set: newCountries ?? undefined,
-          },
-          casts: {
-            deleteMany: {},
-            create: newCasts ?? [],
-          },
-        }
-      : undefined;
-
     const updated = await prismadb.post.update({
       where: { id: data.id },
       data: {
         ...drama,
         status: data.status as PostStatus,
-        lastEditById: me?.id!,
+        lastEditBy: me?.id!,
         authors: {
           set: authors,
         },
-        drama: updateDramaData ? { update: updateDramaData } : undefined,
+        categories: {
+          disconnect: deletedCategories,
+          set: newCategories ?? undefined,
+        },
+        countries: {
+          disconnect: deletedCountries,
+          set: newCountries ?? undefined,
+        },
+        casts: {
+          deleteMany: {},
+          create: newCasts ?? [],
+        },
       },
       include: {
         authors: true,
-        drama: {
+        casts: {
           include: {
-            casts: {
-              include: {
-                people: true,
-              },
-            },
-            categories: true,
-            countries: true,
+            people: true,
           },
         },
+        categories: true,
+        countries: true,
       },
     });
     return {

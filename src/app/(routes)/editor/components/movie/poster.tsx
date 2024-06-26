@@ -23,7 +23,7 @@ const MoviePoster: FC<MoviePosterProp> = ({ form, isLoading, edgestore }) => {
   return (
     <FormField
       control={form.control}
-      name="movie.poster"
+      name="poster"
       render={({ field }) => (
         <FormItem>
           <FormLabel>Postser</FormLabel>

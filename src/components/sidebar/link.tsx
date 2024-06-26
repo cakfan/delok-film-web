@@ -87,8 +87,8 @@ const SidebarLinkItem = ({
             <div className="h-5 w-5 lg:h-6 lg:w-6">
               <Image
                 className="rounded-full"
-                width={20}
-                height={20}
+                width={24}
+                height={24}
                 src={item.icon as string}
                 alt={item.title}
                 style={{ objectFit: "cover" }}

@@ -1,5 +1,5 @@
 import prismadb from "@/config/prisma";
-import { PostWithMovieAndDrama } from "@/types/post";
+import { PostWithAuthors } from "@/types/post";
 
 export const getPost = async ({
   id,
@@ -7,36 +7,29 @@ export const getPost = async ({
 }: {
   id?: string;
   slug?: string;
-}): Promise<PostWithMovieAndDrama | null> => {
+}): Promise<PostWithAuthors | null> => {
   const post = await prismadb.post.findFirst({
     where: {
+      status: "public",
       OR: [{ id }, { slug }],
     },
     include: {
-      movie: {
+      categories: true,
+      countries: true,
+      casts: {
         include: {
-          categories: true,
-          countries: true,
-          casts: {
-            include: {
-              people: true,
-            },
-          },
-        },
-      },
-      drama: {
-        include: {
-          categories: true,
-          countries: true,
-          casts: {
-            include: {
-              people: true,
-            },
-          },
+          people: true,
         },
       },
     },
   });
 
-  return post;
+  if (!post) return null;
+
+  const postValue: PostWithAuthors = {
+    ...post,
+    type: post?.type === "drama" ? "drama" : "movie",
+  };
+
+  return postValue;
 };

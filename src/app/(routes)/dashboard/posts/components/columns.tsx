@@ -16,7 +16,7 @@ export type ClientColumn = {
   title: string;
   slug: string;
   poster: string;
-  releaseDate: string;
+  updatedAt: string;
   country: string;
   type: string;
   status: string;
@@ -68,8 +68,8 @@ export const Columns: ColumnDef<ClientColumn>[] = [
     ),
   },
   {
-    accessorKey: "releaseDate",
-    header: "Release Date",
+    accessorKey: "updatedAt",
+    header: "Updated at",
   },
   {
     accessorKey: "country",

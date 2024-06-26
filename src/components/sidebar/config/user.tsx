@@ -8,6 +8,7 @@ export const UserMenu = async () => {
   const iconStyle = {
     className: "h-5 w-5 lg:h-6 lg:w-6",
   };
+
   const menu: SidebarNavItem[] = [
     {
       title: "User Sidebar",

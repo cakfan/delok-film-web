@@ -30,12 +30,11 @@ import { cn } from "@/lib/utils";
 
 interface ReviewFormProps {
   id: string;
-  type: string;
   me: User | null;
   myReview: ReviewWithAuthor | null;
 }
 
-const ReviewForm: FC<ReviewFormProps> = ({ id, type, me, myReview }) => {
+const ReviewForm: FC<ReviewFormProps> = ({ id, me, myReview }) => {
   const [isMounted, setIsMounted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [optimisticMyReview, addOptimisticMyReview] = useOptimistic(
@@ -49,8 +48,7 @@ const ReviewForm: FC<ReviewFormProps> = ({ id, type, me, myReview }) => {
   let defaultValues = {
     value: 1,
     content: "",
-    dramaId: type === "drama" ? id : undefined,
-    movieId: type === "movie" ? id : undefined,
+    postId: id,
   };
 
   const form = useForm<ReviewFormValues>({
@@ -67,9 +65,12 @@ const ReviewForm: FC<ReviewFormProps> = ({ id, type, me, myReview }) => {
     try {
       setIsLoading(true);
       const validateData = ReviewSchema.parse(data);
+      console.log("data:", validateData);
       addOptimisticMyReview({
         ...validateData,
+        userId: me?.id,
         author: me!,
+        postId: id,
         createdAt: new Date(),
         updatedAt: new Date(),
       });

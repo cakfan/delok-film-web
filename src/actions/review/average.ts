@@ -5,7 +5,7 @@ export const calculateAverageRating = async (
 ): Promise<{ average: number; ratingCounts: Record<number, number> }> => {
   const reviews = await prismadb.review.findMany({
     where: {
-      OR: [{ dramaId: id }, { movieId: id }],
+      postId: id,
     },
   });
 

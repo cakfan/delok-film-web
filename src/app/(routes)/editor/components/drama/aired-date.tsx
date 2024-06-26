@@ -28,14 +28,14 @@ interface DramaDatePickerProps {
 const AiredDate: FC<DramaDatePickerProps> = ({ form, isLoading }) => {
   const [openCalendar, setOpenCalendar] = useState(false);
   const [date, setDate] = useState<DateRange | undefined>({
-    from: form.getValues("drama.airedStart") ?? new Date(),
-    to: addDays(form.getValues("drama.airedEnd") ?? new Date(), 30),
+    from: form.getValues("airedStart") ?? new Date(),
+    to: addDays(form.getValues("airedEnd") ?? new Date(), 30),
   });
 
   return (
     <FormField
       control={form.control}
-      name="drama.airedStart"
+      name="airedStart"
       render={({ field }) => (
         <FormItem className="flex flex-col">
           <FormLabel>Aired Date</FormLabel>
@@ -72,8 +72,8 @@ const AiredDate: FC<DramaDatePickerProps> = ({ form, isLoading }) => {
                 defaultMonth={date?.from ?? undefined}
                 selected={date}
                 onSelect={(value) => {
-                  form.setValue("drama.airedStart", value?.from);
-                  form.setValue("drama.airedEnd", value?.to);
+                  form.setValue("airedStart", value?.from);
+                  form.setValue("airedEnd", value?.to);
                   setDate(value);
                 }}
                 initialFocus

@@ -1,17 +1,17 @@
 import { FC } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { PostWithMovieAndDrama } from "@/types/post";
+import { PostWithAuthors } from "@/types/post";
 import { Each } from "@/components/ui/Each";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import CastSkeleton from "./skeleton";
 
 interface DetailCastsProps {
-  post: PostWithMovieAndDrama;
+  post: PostWithAuthors;
 }
 
 const DetailCast: FC<DetailCastsProps> = ({ post }) => {
-  if (!post.drama?.casts?.length && !post.movie?.casts?.length) {
+  if (!post.casts || !post.casts?.length) {
     return <CastSkeleton />;
   }
 
@@ -22,7 +22,7 @@ const DetailCast: FC<DetailCastsProps> = ({ post }) => {
       </div>
       <div className="flex flex-wrap gap-4 gap-y-8">
         <Each
-          of={post.drama?.casts ?? post.movie?.casts!}
+          of={post.casts}
           render={(item) => (
             <Link
               href={`/people/${item.people.slug}`}

@@ -28,7 +28,7 @@ const MovieCategories: FC<MovieCategoriesProps> = ({
 }) => {
   const [movieCategories, setMovieCategories] = useState<
     { id?: string | null; name?: string | null }[]
-  >(initialData?.movie?.categories ?? []);
+  >(initialData?.categories ?? []);
   const [categoriesSuggestion, setCategoriesSuggestion] = useState<Category[]>(
     [],
   );
@@ -37,7 +37,7 @@ const MovieCategories: FC<MovieCategoriesProps> = ({
   return (
     <FormField
       control={form.control}
-      name="movie.categories"
+      name="categories"
       render={({ field }) => (
         <FormItem className="md:w-[240px]">
           <FormLabel>Categories</FormLabel>

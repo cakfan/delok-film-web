@@ -37,7 +37,7 @@ const MovieCasts: FC<MovieCastsProps> = ({
       peopleId: string;
       people: { name?: string | null; avatar?: string | null };
     }[]
-  >(initialData?.movie?.casts ?? []);
+  >(initialData?.casts ?? []);
   const [castSuggestion, setCastSuggestion] = useState<People[]>([]);
   const [selectedPeople, setSelectedPeople] = useState<People | null>(null);
   const [characterName, setCharacterName] = useState("");
@@ -46,7 +46,7 @@ const MovieCasts: FC<MovieCastsProps> = ({
   return (
     <FormField
       control={form.control}
-      name="movie.casts"
+      name="casts"
       render={({ field }) => (
         <FormItem>
           <FormLabel>Casts</FormLabel>
@@ -189,6 +189,7 @@ const MovieCasts: FC<MovieCastsProps> = ({
                 <Button
                   type="button"
                   variant="secondary"
+                  className="rounded-full"
                   onClick={() => {
                     if (!selectedPeople) {
                       toast.error("Please select people");

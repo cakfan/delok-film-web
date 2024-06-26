@@ -13,7 +13,7 @@ export const getMyReview = async (
   const review = await prismadb.review.findFirst({
     where: {
       userId: me.id,
-      OR: [{ dramaId: id }, { movieId: id }],
+      postId: id,
     },
     include: {
       author: true,

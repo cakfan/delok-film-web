@@ -4,20 +4,20 @@ import { PostWithAuthors } from "@/types/post";
 interface PostProps {
   skip?: number;
   take?: number;
-  people: string;
+  username: string;
 }
 
-export const getPostsByPeople = async ({
+export const getPostsByAuthor = async ({
   skip = 0,
   take = 10,
-  people,
+  username,
 }: PostProps): Promise<PostWithAuthors[] | null> => {
   const posts = await prismadb.post.findMany({
     skip,
     take,
     where: {
       status: "public",
-      OR: [{ casts: { some: { peopleId: people } } }],
+      OR: [{ authors: { some: { username } } }],
     },
     include: {
       authors: true,

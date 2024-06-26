@@ -1,134 +1,69 @@
 import prismadb from "@/config/prisma";
-import { PostWithMovieAndDrama } from "@/types/post";
+import { PostWithAuthors } from "@/types/post";
 
 export const getRelated = async (
   postId: string,
-): Promise<PostWithMovieAndDrama[] | null> => {
+): Promise<PostWithAuthors[] | null> => {
   const post = await prismadb.post.findUnique({
     where: {
       id: postId,
     },
     include: {
-      movie: {
-        include: {
-          categories: true,
-          countries: true,
-          casts: { include: { people: true } },
-        },
-      },
-      drama: {
-        include: {
-          categories: true,
-          countries: true,
-          casts: { include: { people: true } },
-        },
-      },
+      categories: true,
+      countries: true,
+      casts: { include: { people: true } },
     },
   });
 
   if (!post) return null;
 
   // Extract relevant IDs for categories, countries, and casts
-  const movieCategoryIds =
-    post.movie?.categories.map((category) => category.id) || [];
-  const dramaCategoryIds =
-    post.drama?.categories.map((category) => category.id) || [];
-  const countryIds = [
-    ...(post.movie?.countries.map((country) => country.id) || []),
-    ...(post.drama?.countries.map((country) => country.id) || []),
-  ];
-  const castIds = [
-    ...(post.movie?.casts.map((cast) => cast.peopleId) || []),
-    ...(post.drama?.casts.map((cast) => cast.peopleId) || []),
-  ];
+  const categoryIds = post.categories.map((category) => category.id) || [];
+  const countryIds = [...(post.countries.map((country) => country.id) || [])];
+  const castIds = [...(post.casts.map((cast) => cast.peopleId) || [])];
 
-  const movies = await prismadb.post.findMany({
+  const posts = await prismadb.post.findMany({
     where: {
       id: { not: postId },
       OR: [
-        // Filter by movie categories, countries, and casts
         {
-          movie: {
-            OR: [
-              {
-                categories: {
-                  some: {
-                    id: { in: movieCategoryIds },
-                  },
-                },
-              },
-              {
-                countries: {
-                  some: {
-                    id: { in: countryIds },
-                  },
-                },
-              },
-              {
-                casts: {
-                  some: {
-                    peopleId: { in: castIds },
-                  },
-                },
-              },
-            ],
+          categories: {
+            some: {
+              id: { in: categoryIds },
+            },
           },
         },
-        // Filter by drama categories, countries, and casts
         {
-          drama: {
-            OR: [
-              {
-                categories: {
-                  some: {
-                    id: { in: dramaCategoryIds },
-                  },
-                },
-              },
-              {
-                countries: {
-                  some: {
-                    id: { in: countryIds },
-                  },
-                },
-              },
-              {
-                casts: {
-                  some: {
-                    peopleId: { in: castIds },
-                  },
-                },
-              },
-            ],
+          countries: {
+            some: {
+              id: { in: countryIds },
+            },
+          },
+        },
+        {
+          casts: {
+            some: {
+              peopleId: { in: castIds },
+            },
           },
         },
       ],
     },
     include: {
-      movie: {
+      categories: true,
+      countries: true,
+      casts: {
         include: {
-          categories: true,
-          countries: true,
-          casts: {
-            include: {
-              people: true,
-            },
-          },
-        },
-      },
-      drama: {
-        include: {
-          categories: true,
-          countries: true,
-          casts: {
-            include: {
-              people: true,
-            },
-          },
+          people: true,
         },
       },
     },
   });
 
-  return movies;
+  const postsValues: PostWithAuthors[] = posts.map((post) => ({
+    ...post,
+    type: post.type === "drama" ? "drama" : "movie",
+  }));
+
+  return postsValues;
 };

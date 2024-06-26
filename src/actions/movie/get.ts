@@ -1,6 +1,5 @@
 import prismadb from "@/config/prisma";
-import { MovieFormValues, PostWithMovieDetail } from "@/types/post/movie";
-import { toast } from "sonner";
+import { MovieWithAuthor } from "@/types/post/movie";
 
 export const getMovie = async ({
   id,
@@ -8,32 +7,34 @@ export const getMovie = async ({
 }: {
   id?: string;
   slug?: string;
-}): Promise<PostWithMovieDetail | null> => {
+}): Promise<MovieWithAuthor | null> => {
   if (!id && !slug) {
-    const msg = "You have to provide an id or slug";
-    toast.error(msg);
     return null;
   }
 
   const movie = await prismadb.post.findFirst({
     where: {
+      type: "movie",
       OR: [{ id }, { slug }],
     },
     include: {
       authors: true,
-      movie: {
+      categories: true,
+      countries: true,
+      casts: {
         include: {
-          categories: true,
-          countries: true,
-          casts: {
-            include: {
-              people: true,
-            },
-          },
+          people: true,
         },
       },
     },
   });
 
-  return movie;
+  if (!movie || movie.type !== "movie") return null;
+
+  const movieValues: MovieWithAuthor = {
+    ...movie,
+    type: "movie",
+  };
+
+  return movieValues;
 };

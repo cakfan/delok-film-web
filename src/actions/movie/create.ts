@@ -29,21 +29,21 @@ export const createMovie = async (data: MovieFormValues) => {
 
     // Check if related categories exist
     const addCategories =
-      data.movie?.categories?.map((category) => ({ id: category.id })) || [];
+      data.categories?.map((category) => ({ id: category.id })) || [];
 
     // Check if related countries exist
     const addCountries =
-      data.movie?.countries?.map((country) => ({ id: country.id })) || [];
+      data.countries?.map((country) => ({ id: country.id })) || [];
 
     // Prepare data for nested creation
-    const createMovieData = data.movie
+    const createMovieData = data
       ? {
-          director: data.movie.director,
-          poster: data.movie.poster ?? undefined,
-          trailer: data.movie.trailer ?? undefined,
-          contentRating: data.movie.contentRating ?? undefined,
-          screenWriter: data.movie.screenWriter ?? undefined,
-          releaseDate: data.movie.releaseDate ?? undefined,
+          director: data.director,
+          poster: data.poster ?? undefined,
+          trailer: data.trailer ?? undefined,
+          contentRating: data.contentRating ?? undefined,
+          screenWriter: data.screenWriter ?? undefined,
+          releaseDate: data.releaseDate ?? undefined,
           categories: {
             connect: addCategories,
           },
@@ -52,7 +52,7 @@ export const createMovie = async (data: MovieFormValues) => {
           },
           casts: {
             create:
-              data.movie.casts?.map((cast) => ({
+              data.casts?.map((cast) => ({
                 peopleId: cast.peopleId,
                 characterName: cast.characterName ?? undefined,
               })) ?? [],
@@ -68,25 +68,33 @@ export const createMovie = async (data: MovieFormValues) => {
       data: {
         ...movie,
         status: data.status as PostStatus,
-        lastEditById: me?.id!,
+        lastEditBy: me?.id!,
         authors: {
           connect: [{ id: me?.id }],
         },
-        movie: createMovieData ? { create: createMovieData } : undefined,
+        categories: {
+          connect: addCategories,
+        },
+        countries: {
+          connect: addCountries,
+        },
+        casts: {
+          create:
+            data.casts?.map((cast) => ({
+              peopleId: cast.peopleId,
+              characterName: cast.characterName ?? undefined,
+            })) ?? [],
+        },
       },
       include: {
         authors: true,
-        movie: {
+        casts: {
           include: {
-            casts: {
-              include: {
-                people: true,
-              },
-            },
-            categories: true,
-            countries: true,
+            people: true,
           },
         },
+        categories: true,
+        countries: true,
       },
     });
     return {

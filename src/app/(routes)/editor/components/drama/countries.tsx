@@ -34,7 +34,7 @@ const DramaCountries: FC<DramaCountriesProps> = ({
   const [openCountries, setOpenCountries] = useState(false);
 
   useEffect(() => {
-    const initialCountries = initialData?.drama?.countries;
+    const initialCountries = initialData?.countries;
     if (initialCountries?.length) {
       const formattedCountries = initialCountries.map((item) => ({
         id: item.id,
@@ -43,12 +43,12 @@ const DramaCountries: FC<DramaCountriesProps> = ({
       }));
       setDramaCountries(formattedCountries!);
     }
-  }, [initialData?.drama?.countries]);
+  }, [initialData?.countries]);
 
   return (
     <FormField
       control={form.control}
-      name="drama.countries"
+      name="countries"
       render={({ field }) => (
         <FormItem className="md:w-[240px]">
           <FormLabel>Countries</FormLabel>

@@ -1,5 +1,5 @@
 import prismadb from "@/config/prisma";
-import { PostWithDramaDetail } from "@/types/post/drama";
+import { DramaWithAuthor } from "@/types/post/drama";
 import { toast } from "sonner";
 
 export const getDrama = async ({
@@ -8,32 +8,34 @@ export const getDrama = async ({
 }: {
   id?: string;
   slug?: string;
-}): Promise<PostWithDramaDetail | null> => {
+}): Promise<DramaWithAuthor | null> => {
   if (!id && !slug) {
-    const msg = "You have to provide an id or slug";
-    toast.error(msg);
     return null;
   }
 
   const drama = await prismadb.post.findFirst({
     where: {
+      type: "drama",
       OR: [{ id }, { slug }],
     },
     include: {
       authors: true,
-      drama: {
+      categories: true,
+      countries: true,
+      casts: {
         include: {
-          categories: true,
-          countries: true,
-          casts: {
-            include: {
-              people: true,
-            },
-          },
+          people: true,
         },
       },
     },
   });
 
-  return drama;
+  if (!drama || drama?.type !== "drama") return null;
+
+  const dramaValues: DramaWithAuthor = {
+    ...drama,
+    type: "drama",
+  };
+
+  return dramaValues;
 };

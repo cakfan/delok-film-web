@@ -28,7 +28,7 @@ const DramaCategories: FC<DramaCategoriesProps> = ({
 }) => {
   const [dramaCategories, setDramaCategories] = useState<
     { id?: string | null; name?: string | null }[]
-  >(initialData?.drama?.categories ?? []);
+  >(initialData?.categories ?? []);
   const [categoriesSuggestion, setCategoriesSuggestion] = useState<Category[]>(
     [],
   );
@@ -37,7 +37,7 @@ const DramaCategories: FC<DramaCategoriesProps> = ({
   return (
     <FormField
       control={form.control}
-      name="drama.categories"
+      name="categories"
       render={({ field }) => (
         <FormItem className="md:w-[240px]">
           <FormLabel>Categories</FormLabel>

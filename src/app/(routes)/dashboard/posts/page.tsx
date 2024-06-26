@@ -1,9 +1,11 @@
-import prismadb from "@/config/prisma";
 import { Metadata } from "next";
 import { format } from "date-fns";
 import { ClientColumn } from "./components/columns";
 import PostClient from "./components/client";
-import { Country } from "@prisma/client";
+import { enUS } from "date-fns/locale";
+import { getMe } from "@/actions/user";
+import { getAllPost, getPostsByAuthor } from "@/actions/post";
+import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "Posts",
@@ -11,58 +13,29 @@ export const metadata: Metadata = {
 };
 
 export default async function DashboardPeoples() {
-  const posts = await prismadb.post.findMany({
-    orderBy: {
-      updatedAt: "desc",
-    },
-    include: {
-      movie: {
-        include: {
-          countries: true,
-        },
-      },
-      drama: {
-        include: {
-          countries: true,
-        },
-      },
-    },
-  });
+  const me = await getMe();
+  if (!me || !me.username) redirect("/");
+  const isAdmin = me?.role === "admin";
 
-  const getCountry = (
-    type: string,
-    movieCountries?: Country[] | null,
-    dramaCountries?: Country[] | null,
-  ): string => {
-    const countries =
-      type === "movie"
-        ? movieCountries
-        : type === "drama"
-          ? dramaCountries
-          : null;
-    return countries && countries.length ? countries[0].name : "";
-  };
+  const posts = isAdmin
+    ? await getAllPost({})
+    : await getPostsByAuthor({ username: me?.username! });
 
-  const formatted: ClientColumn[] = posts.map((item) => ({
-    id: item.id,
-    title: item.title,
-    slug: item.slug,
-    type: item.type,
-    status: item.status,
-    poster: item.movie?.poster ?? item.drama?.poster ?? "/no-image.png",
-    releaseDate:
-      format(
-        item.movie?.releaseDate
-          ? item.movie.releaseDate
-          : item.drama?.airedEnd!,
-        "dd MMMM yyyy",
-      ) ?? "NA",
-    country: getCountry(
-      item.type,
-      item.movie?.countries,
-      item.drama?.countries,
-    ),
-  }));
+  const formatted: ClientColumn[] = posts
+    ? posts.map((item) => ({
+        id: item.id!,
+        title: item.title,
+        slug: item.slug,
+        type: item.type,
+        status: item.status,
+        poster: item.poster ?? item.poster ?? "/no-image.png",
+        updatedAt:
+          format(item.updatedAt, "PPP", {
+            locale: enUS,
+          }) ?? "NA",
+        country: item.countries?.[0].name ?? "NA",
+      }))
+    : [];
 
   return <PostClient data={formatted} />;
 }

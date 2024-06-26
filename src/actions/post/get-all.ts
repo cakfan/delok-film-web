@@ -1,11 +1,13 @@
 import prismadb from "@/config/prisma";
-import { PostWithMovieAndDrama } from "@/types/post";
+import { PostWithAuthors } from "@/types/post";
 
 interface PostProps {
   skip?: number;
   take?: number;
   category?: string;
   query?: string;
+  sortBy?: "update" | "create";
+  sortOrder?: "asc" | "desc";
 }
 
 export const getAllPost = async ({
@@ -13,52 +15,46 @@ export const getAllPost = async ({
   take = 10,
   category,
   query,
-}: PostProps): Promise<PostWithMovieAndDrama[] | null> => {
+  sortBy = "update",
+  sortOrder = "desc",
+}: PostProps): Promise<PostWithAuthors[] | null> => {
+  const orderBy = {
+    update: { updatedAt: sortOrder },
+    create: { createdAt: sortOrder },
+  };
   const posts = await prismadb.post.findMany({
     skip,
     take,
+    orderBy: orderBy[sortBy],
     where: {
       status: "public",
       OR: [
         { title: { contains: query ?? undefined, mode: "insensitive" } },
         { content: { contains: query ?? undefined, mode: "insensitive" } },
         {
-          movie: {
-            categories: { some: { slug: category ?? undefined } },
-          },
+          categories: { some: { slug: category ?? undefined } },
         },
         {
-          drama: {
-            categories: { some: { slug: category ?? undefined } },
-          },
+          categories: { some: { slug: category ?? undefined } },
         },
       ],
     },
     include: {
-      movie: {
+      authors: true,
+      categories: true,
+      countries: true,
+      casts: {
         include: {
-          categories: true,
-          countries: true,
-          casts: {
-            include: {
-              people: true,
-            },
-          },
-        },
-      },
-      drama: {
-        include: {
-          categories: true,
-          countries: true,
-          casts: {
-            include: {
-              people: true,
-            },
-          },
+          people: true,
         },
       },
     },
   });
 
-  return posts;
+  const postsValues: PostWithAuthors[] = posts.map((post) => ({
+    ...post,
+    type: post.type === "drama" ? "drama" : "movie",
+  }));
+
+  return postsValues;
 };

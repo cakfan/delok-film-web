@@ -30,7 +30,7 @@ const MovieReleaseDate: FC<MovieDatePickerProps> = ({ form, isLoading }) => {
   return (
     <FormField
       control={form.control}
-      name="movie.releaseDate"
+      name="releaseDate"
       render={({ field }) => (
         <FormItem className="flex flex-col">
           <FormLabel>Release Date</FormLabel>

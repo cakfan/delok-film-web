@@ -1,5 +1,5 @@
 import prismadb from "@/config/prisma";
-import { PostWithMovieAndDrama } from "@/types/post";
+import { PostWithAuthors } from "@/types/post";
 
 interface PostProps {
   skip?: number;
@@ -11,7 +11,7 @@ export const searchPost = async ({
   skip = 0,
   take = 10,
   query,
-}: PostProps): Promise<PostWithMovieAndDrama[] | null> => {
+}: PostProps): Promise<PostWithAuthors[] | null> => {
   const posts = await prismadb.post.findMany({
     skip,
     take,
@@ -20,33 +20,30 @@ export const searchPost = async ({
       OR: [
         { title: { contains: query ?? undefined, mode: "insensitive" } },
         { content: { contains: query ?? undefined, mode: "insensitive" } },
-      ],
-    },
-    include: {
-      movie: {
-        include: {
-          categories: true,
-          countries: true,
+        {
           casts: {
-            include: {
-              people: true,
+            some: {
+              people: { name: { contains: query ?? "", mode: "insensitive" } },
             },
           },
         },
-      },
-      drama: {
+      ],
+    },
+    include: {
+      categories: true,
+      countries: true,
+      casts: {
         include: {
-          categories: true,
-          countries: true,
-          casts: {
-            include: {
-              people: true,
-            },
-          },
+          people: true,
         },
       },
     },
   });
 
-  return posts;
+  const postsValues: PostWithAuthors[] = posts.map((post) => ({
+    ...post,
+    type: post.type === "drama" ? "drama" : "movie",
+  }));
+
+  return postsValues;
 };

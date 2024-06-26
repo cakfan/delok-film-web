@@ -34,7 +34,7 @@ const MovieCountries: FC<MovieCountriesProps> = ({
   const [openCountries, setOpenCountries] = useState(false);
 
   useEffect(() => {
-    const initialCountries = initialData?.movie?.countries;
+    const initialCountries = initialData?.countries;
     if (initialCountries?.length) {
       const formattedCountries = initialCountries.map((item) => ({
         id: item.id,
@@ -43,12 +43,12 @@ const MovieCountries: FC<MovieCountriesProps> = ({
       }));
       setMovieCountries(formattedCountries!);
     }
-  }, [initialData?.movie?.countries]);
+  }, [initialData?.countries]);
 
   return (
     <FormField
       control={form.control}
-      name="movie.countries"
+      name="countries"
       render={({ field }) => (
         <FormItem className="md:w-[240px]">
           <FormLabel>Countries</FormLabel>

@@ -1,7 +1,5 @@
 import prismadb from "@/config/prisma";
 import { PeopleWithAuthors } from "@/types/post/people";
-import { People, User } from "@prisma/client";
-import { toast } from "sonner";
 
 export const getPeople = async ({
   id,
@@ -11,8 +9,6 @@ export const getPeople = async ({
   slug?: string;
 }): Promise<PeopleWithAuthors | null> => {
   if (!id && !slug) {
-    const msg = "You have to provide an id or slug";
-    toast.error(msg);
     return null;
   }
 

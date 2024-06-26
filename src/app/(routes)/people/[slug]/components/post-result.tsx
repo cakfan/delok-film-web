@@ -8,7 +8,7 @@ interface PostResultProps {
 }
 
 const PostResult: FC<PostResultProps> = async ({ peopleId }) => {
-  const posts = await getPostsByPeople({ people: peopleId });
+  const posts = await getPostsByPeople({ people: peopleId, take: 4 });
   if (!posts?.length) return null;
 
   return (
