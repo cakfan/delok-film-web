@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getPeople } from "@/actions/people";
 import { Suspense } from "react";
 import PeopleResult from "./components/people-result";
+import PeopleSkeleton from "./components/skeleton";
 
 interface DetailPeopleProps {
   params: { slug: string };
@@ -27,7 +28,7 @@ export default async function DetailPeople({
 }: DetailPeopleProps) {
   return (
     <article className="w-full space-y-4">
-      <Suspense fallback={<p>Loading data</p>}>
+      <Suspense fallback={<PeopleSkeleton />}>
         <PeopleResult slug={slug} />
       </Suspense>
     </article>
