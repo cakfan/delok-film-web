@@ -4,13 +4,15 @@ import { PostWithAuthors } from "@/types/post";
 export const getPost = async ({
   id,
   slug,
+  status = "public",
 }: {
   id?: string;
   slug?: string;
+  status?: "public" | "pending" | "draft";
 }): Promise<PostWithAuthors | null> => {
   const post = await prismadb.post.findFirst({
     where: {
-      status: "public",
+      status,
       OR: [{ id }, { slug }],
     },
     include: {

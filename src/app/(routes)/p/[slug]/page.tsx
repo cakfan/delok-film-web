@@ -1,18 +1,15 @@
-// import { Suspense } from "react";
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { getPost } from "@/actions/post";
 import { calculateAverageRating } from "@/actions/review";
 import { notFound } from "next/navigation";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
-import { Each } from "@/components/ui/Each";
-import Link from "next/link";
 import TrailerDialog from "@/components/trailer";
-import { countryFlag } from "@/components/icons";
 import Review from "@/app/(routes)/p/[slug]/components/review";
 import DetailCast from "./components/casts";
 import { Ratings } from "@/components/ui/rating";
-import { Badge, badgeVariants } from "@/components/ui/badge";
+import { Badge } from "@/components/ui/badge";
 import { format } from "date-fns";
 import { enUS } from "date-fns/locale";
 import { cn } from "@/lib/utils";
@@ -23,7 +20,6 @@ import PostSkeleton from "@/components/card/skeleton";
 import ReviewSkeleton from "./components/review/skeleton";
 import CategoriesItems from "./components/categories";
 import CountriesItems from "./components/countries";
-import { Suspense } from "react";
 
 interface DetailPageProps {
   params: { slug: string };
