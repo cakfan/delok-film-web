@@ -1,7 +1,8 @@
-import React from "react";
+import React, { Suspense } from "react";
 import SidebarBrand from "./brand";
 import SidebarMenu from "./menu";
 import { cn } from "@/lib/utils";
+import SidebarSkeleton from "./skeleton";
 
 const SidebarWrapper = ({
   children,
@@ -22,7 +23,9 @@ const SidebarWrapper = ({
       >
         <div className="flex h-full w-full flex-col">
           <SidebarBrand isSmall={isSmall} />
-          <SidebarMenu isDashboard={isDashboard} isSmall={isSmall} />
+          <Suspense fallback={<SidebarSkeleton />}>
+            <SidebarMenu isDashboard={isDashboard} isSmall={isSmall} />
+          </Suspense>
         </div>
       </aside>
       <main className="flex-1">{children}</main>
