@@ -75,7 +75,9 @@ const AiredDate: FC<DramaDatePickerProps> = ({ form, isLoading }) => {
                   form.setValue("airedStart", value?.from);
                   form.setValue("airedEnd", value?.to);
                   setDate(value);
-                  setOpenCalendar(false);
+                  if (value?.from && value.to) {
+                    setOpenCalendar(false);
+                  }
                 }}
                 initialFocus
                 numberOfMonths={2}

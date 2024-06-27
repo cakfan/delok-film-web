@@ -161,7 +161,7 @@ const FormPeople: React.FC<FormPeopleProps> = ({ initialData, countries }) => {
           }}
           className="w-full space-y-4"
         >
-          <div className="sticky z-20 flex items-center justify-between bg-background pb-2">
+          <div className="sticky top-0 z-20 flex items-center justify-between bg-background py-2">
             <Heading showBackButton title={title} description={description} />
             <div className="flex items-center gap-8">
               {initialData && (
