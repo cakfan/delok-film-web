@@ -9,7 +9,7 @@ import { getAllPeoples } from "@/actions/people";
 const EditorMovie = async ({ id }: { id: string }) => {
   const posts = await getMovie({ id });
 
-  const countries = (await getAllCountries()) ?? [];
+  const countries = (await getAllCountries({})) ?? [];
 
   const categories = (await getAllCategories({})) ?? [];
 
