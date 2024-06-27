@@ -1,12 +1,9 @@
 import { FC } from "react";
 import { PostWithAuthors } from "@/types/post";
-import { calculateAverageRating, getReviews } from "@/actions/review";
-import { Ratings } from "@/components/ui/rating";
-import { Progress } from "@/components/ui/progress";
+import { getReviews } from "@/actions/review";
 import { getMe } from "@/actions/user";
 import ReviewForm from "./form";
 import ReviewsList from "./list";
-import ReviewBar from "./review-bar";
 
 interface ReviewProps {
   post: PostWithAuthors;
@@ -25,8 +22,12 @@ const Review: FC<ReviewProps> = async ({ post }) => {
         <div className="prose dark:prose-invert lg:prose-xl">
           <h2>Rating & Reviews</h2>
         </div>
-        <ReviewBar reviews={reviews} />
-        <ReviewForm id={post.id} me={me} myReview={myReview} />
+        <ReviewForm
+          id={post.id}
+          me={me}
+          myReview={myReview}
+          reviews={reviews}
+        />
         <ReviewsList reviews={reviews} me={me} />
       </div>
     </section>
