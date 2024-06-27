@@ -27,8 +27,8 @@ const PeopleResult: FC<PeopleResultProps> = async ({ q }) => {
             <div className="h-14 w-14">
               <AspectRatio ratio={1 / 1}>
                 <Image
-                  src={people.avatar ?? "NA"}
-                  alt={people.name ?? "NA"}
+                  src={people.avatar || "/img/default.png"}
+                  alt={people.name ?? "Profile"}
                   fill
                   className="m-0 overflow-hidden rounded-full object-cover transition-all duration-300 group-hover:scale-105"
                 />

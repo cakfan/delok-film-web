@@ -28,7 +28,7 @@ export default async function DashboardPeoples() {
         slug: item.slug,
         type: item.type,
         status: item.status,
-        poster: item.poster ?? item.poster ?? "/no-image.png",
+        poster: item.poster || "/img/default.png",
         updatedAt:
           format(item.updatedAt, "PPP", {
             locale: enUS,

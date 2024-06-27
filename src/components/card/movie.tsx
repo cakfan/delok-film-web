@@ -24,7 +24,7 @@ const MovieCard: FC<MovieCardProps> = ({ post, rating }) => {
         <div className="relative h-fit w-full overflow-hidden rounded-md">
           <AspectRatio ratio={9 / 16}>
             <Image
-              src={post.poster ?? "/no-image.png"}
+              src={post.poster || "/img/default.png"}
               alt={post.title}
               fill
               className="-z-10 m-0 overflow-hidden rounded-md object-cover transition-all duration-300 group-hover:scale-105"

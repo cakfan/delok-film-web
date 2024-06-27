@@ -17,7 +17,7 @@ export default async function DashboardReviews() {
     ? reviews.map((item) => ({
         id: item.id!,
         name: item.author.name ?? "NA",
-        avatar: item.author.image ?? "/default.png",
+        avatar: item.author.image || "/imgm/default.png",
         createdAt: item.createdAt
           ? `${format(item.createdAt, "PPP", { locale: enUS })}`
           : "NA",

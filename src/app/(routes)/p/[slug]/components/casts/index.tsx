@@ -32,8 +32,8 @@ const DetailCast: FC<DetailCastsProps> = ({ post }) => {
               <div className="h-28 w-28">
                 <AspectRatio ratio={1 / 1}>
                   <Image
-                    src={item.people.avatar ?? "NA"}
-                    alt={item.people.name ?? "NA"}
+                    src={item.people.avatar || "/img/default.png"}
+                    alt={item.people.name || "NA"}
                     fill
                     className="m-0 overflow-hidden rounded-md object-cover transition-all duration-300 group-hover:scale-105"
                   />

@@ -18,7 +18,7 @@ export async function generateMetadata({
     openGraph: {
       title: `${people?.name} ${people?.nativeName ? `(${people.nativeName})` : ""}`,
       description: people?.bio,
-      images: [people?.avatar ?? "/default.png"],
+      images: [people?.avatar || "/img/default.png"],
     },
   };
 }

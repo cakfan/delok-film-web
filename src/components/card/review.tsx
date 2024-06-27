@@ -60,8 +60,8 @@ const ReviewCard: FC<ReviewCardProps> = ({ data, isMine = false }) => {
           <div className="h-8 w-8">
             <AspectRatio ratio={1 / 1}>
               <Image
-                src={data.author.image ?? "NA"}
-                alt={data.author.name ?? "NA"}
+                src={data.author.image || "/img/default.png"}
+                alt={data.author.name ?? "Profile"}
                 fill
                 className="m-0 overflow-hidden rounded-full object-cover transition-all duration-300 group-hover:scale-105"
               />

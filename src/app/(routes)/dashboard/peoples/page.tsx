@@ -17,7 +17,7 @@ export default async function DashboardPeoples() {
     ? peoples.map((item) => ({
         id: item.id,
         name: `${item.name} (${getAge(item.birthDate)})`,
-        avatar: item.avatar ?? "",
+        avatar: item.avatar || "/img/default.png",
         birthDate: item.birthDate
           ? `${format(item.birthDate, "dd MMMM yyyy")}`
           : "NA",

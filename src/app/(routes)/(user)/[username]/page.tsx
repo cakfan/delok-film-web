@@ -35,9 +35,9 @@ export default async function UsernamePage({
       <div className="flex w-full items-center justify-start">
         <div className="flex flex-1 items-center gap-4">
           <Avatar className="h-24 w-24">
-            <AvatarImage src={user?.image ?? "na"} />
+            <AvatarImage src={user?.image || "/img/default.png"} />
             <AvatarFallback>
-              {getInitialName(user?.name ?? "Profile")}
+              {getInitialName(user?.name || "Profile")}
             </AvatarFallback>
           </Avatar>
           <div className="prose flex flex-col dark:prose-invert">

@@ -86,7 +86,7 @@ const PostResult = async ({ slug }: { slug?: string }) => {
         <div className="relative mb-4 w-full overflow-hidden rounded-md">
           <AspectRatio ratio={9 / 16}>
             <Image
-              src={post.poster ?? "/no-image.png"}
+              src={post.poster || "/img/default.png"}
               alt={post.title}
               fill
               className="m-0 overflow-hidden rounded-md object-cover transition-all duration-300 group-hover:scale-105"

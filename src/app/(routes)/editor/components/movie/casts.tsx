@@ -159,7 +159,7 @@ const MovieCasts: FC<MovieCastsProps> = ({
                                 <div className="w-10">
                                   <AspectRatio ratio={1}>
                                     <Image
-                                      src={item.avatar ?? "NA"}
+                                      src={item.avatar ?? "/img/default.png"}
                                       alt={item.name ?? "NA"}
                                       fill
                                       className="rounded-full object-cover"
