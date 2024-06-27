@@ -1,9 +1,9 @@
-import prismadb from "@/config/prisma";
 import { Metadata } from "next";
 import { format } from "date-fns";
 import { ClientColumn } from "./components/columns";
-import CountryClient from "./components/client";
+import PeopleClient from "./components/client";
 import { getAge } from "@/actions/utils";
+import { getAllPeoples } from "@/actions/people";
 
 export const metadata: Metadata = {
   title: "Peoples",
@@ -11,24 +11,19 @@ export const metadata: Metadata = {
 };
 
 export default async function DashboardPeoples() {
-  const peoples = await prismadb.people.findMany({
-    orderBy: {
-      updatedAt: "desc",
-    },
-    include: {
-      nationality: true,
-    },
-  });
+  const peoples = await getAllPeoples();
 
-  const formatted: ClientColumn[] = peoples.map((item) => ({
-    id: item.id,
-    name: `${item.name} (${getAge(item.birthDate)})`,
-    avatar: item.avatar ?? "",
-    birthDate: item.birthDate
-      ? `${format(item.birthDate, "dd MMMM yyyy")}`
-      : "NA",
-    nationality: item.nationality?.name!,
-  }));
+  const formatted: ClientColumn[] = peoples?.length
+    ? peoples.map((item) => ({
+        id: item.id,
+        name: `${item.name} (${getAge(item.birthDate)})`,
+        avatar: item.avatar ?? "",
+        birthDate: item.birthDate
+          ? `${format(item.birthDate, "dd MMMM yyyy")}`
+          : "NA",
+        nationality: item.nationality?.name!,
+      }))
+    : [];
 
-  return <CountryClient data={formatted} />;
+  return <PeopleClient data={formatted} />;
 }

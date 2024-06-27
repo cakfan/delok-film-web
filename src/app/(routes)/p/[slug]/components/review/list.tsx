@@ -15,7 +15,7 @@ const ReviewsList: FC<ReviewsListProps> = async ({ reviews, me }) => {
   if (!reviews?.length) {
     return (
       <div className="review-list prose mt-10 flex flex-col gap-4 dark:prose-invert lg:prose-xl">
-        <p>Not rated yet</p>
+        <p>There are no reviews yet</p>
       </div>
     );
   }

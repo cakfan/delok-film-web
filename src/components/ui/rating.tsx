@@ -108,7 +108,7 @@ export const Ratings = ({
     >
       {showText && (
         <span className="text-center text-6xl font-semibold">
-          {currentRating}
+          {initialRating}
         </span>
       )}
       <div className="flex items-center" onMouseEnter={handleMouseEnter}>

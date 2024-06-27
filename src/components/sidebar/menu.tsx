@@ -84,7 +84,7 @@ const SidebarMenu = async ({
   isSmall: boolean;
 }) => {
   const mainMenu = await MainMenu();
-  const adminMenu = AdminMenu();
+  const adminMenu = await AdminMenu();
   const userMenu = await UserMenu();
   return (
     <aside className="relative flex h-auto w-full flex-1 flex-col items-center justify-between">

@@ -1,10 +1,14 @@
 import prismadb from "@/config/prisma";
-import { People } from "@prisma/client";
+import { PeopleWithAuthors } from "@/types/post/people";
 
-export const getAllPeoples = async (): Promise<People[] | null> => {
+export const getAllPeoples = async (): Promise<PeopleWithAuthors[] | null> => {
   const peoples = await prismadb.people.findMany({
     orderBy: {
       updatedAt: "desc",
+    },
+    include: {
+      authors: true,
+      nationality: true,
     },
   });
 

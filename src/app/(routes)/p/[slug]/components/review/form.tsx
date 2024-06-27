@@ -65,15 +65,15 @@ const ReviewForm: FC<ReviewFormProps> = ({ id, me, myReview }) => {
     try {
       setIsLoading(true);
       const validateData = ReviewSchema.parse(data);
-      console.log("data:", validateData);
-      addOptimisticMyReview({
+      const newReview = {
         ...validateData,
         userId: me?.id,
         author: me!,
         postId: id,
         createdAt: new Date(),
         updatedAt: new Date(),
-      });
+      };
+      addOptimisticMyReview(newReview);
       const response = await createReview(validateData);
       if (response.status === "error") {
         toast.error(response.message);

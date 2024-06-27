@@ -1,21 +1,20 @@
+import { FC } from "react";
 import { Progress } from "@/components/ui/progress";
 import { Ratings } from "@/components/ui/rating";
-import { FC } from "react";
+import { ReviewWithAuthor } from "@/types/post/review";
+import { calculateAverageRatingClient } from "@/actions/review";
 
 interface ReviewBarProps {
-  rating: {
-    average: number;
-    ratingCounts: Record<number, number>;
-  };
-  totalReviews: number;
+  reviews: ReviewWithAuthor[];
 }
 
-const ReviewBar: FC<ReviewBarProps> = ({ rating, totalReviews }) => {
+const ReviewBar: FC<ReviewBarProps> = ({ reviews }) => {
+  const rating = calculateAverageRatingClient({ reviews });
   return (
     <div className="prose flex w-full items-center gap-8 dark:prose-invert lg:prose-xl">
       <Ratings
-        rating={rating?.average ?? 0}
-        total={totalReviews}
+        rating={rating.average}
+        total={reviews.length}
         variant="yellow"
         disabled
         showText
@@ -27,8 +26,8 @@ const ReviewBar: FC<ReviewBarProps> = ({ rating, totalReviews }) => {
             <span className="text-sm font-medium">{5 - i}</span>
             <Progress
               value={
-                (rating?.ratingCounts?.[5 - i]! / (totalReviews ?? 0)) * 100 ??
-                0
+                (rating?.ratingCounts?.[5 - i]! / (reviews.length ?? 0)) *
+                  100 ?? 0
               }
               className="h-2"
             />

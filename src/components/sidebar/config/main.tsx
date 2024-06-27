@@ -3,8 +3,8 @@ import { SidebarNavItem } from "@/types/nav";
 import { Clapperboard, Home, LayoutDashboard, Search } from "lucide-react";
 
 export const MainMenu = async () => {
-  const user = await getMe();
-  const isNotMember = user && user?.role !== "member";
+  const me = await getMe();
+  const isNotMember = me?.role !== "member";
 
   const iconStyle = {
     className: "h-5 w-5 lg:h-6 lg:w-6",

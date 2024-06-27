@@ -1,3 +1,5 @@
+import { getMe } from "@/actions/user";
+import { SidebarNavItem } from "@/types/nav";
 import {
   Earth,
   Film,
@@ -5,14 +7,25 @@ import {
   LayoutDashboard,
   SquareStack,
   UsersRound,
+  MessageSquareDot,
 } from "lucide-react";
 
-export const AdminMenu = () => {
+export const AdminMenu = async () => {
+  const me = await getMe();
+  const isAdmin = me?.role === "admin";
+
   const dashboardUrl = "/dashboard";
   const iconStyle = {
     className: "h-5 w-5 lg:h-6 lg:w-6",
   };
-  return [
+
+  const reviews = {
+    title: "Reviews",
+    href: dashboardUrl + "/reviews",
+    icon: <MessageSquareDot {...iconStyle} />,
+  };
+
+  const menu: SidebarNavItem[] = [
     {
       title: "Admin Sidebar",
       hideTitle: true,
@@ -50,4 +63,8 @@ export const AdminMenu = () => {
       ],
     },
   ];
+
+  if (isAdmin) menu[0].items?.push(reviews);
+
+  return menu;
 };

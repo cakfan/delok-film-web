@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 };
 
 export default async function DashboardCountries() {
-  const countries = await getAllCountries();
+  const countries = await getAllCountries({});
 
   let formatted: ClientColumn[] = [];
   if (countries?.length) {

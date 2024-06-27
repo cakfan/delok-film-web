@@ -14,8 +14,7 @@ interface ReviewProps {
 
 const Review: FC<ReviewProps> = async ({ post }) => {
   if (!post.id) return null;
-  const rating = await calculateAverageRating(post.id);
-  const reviews = await getReviews(post.id);
+  const reviews = (await getReviews(post.id)) ?? [];
   const me = await getMe();
   const myReview =
     reviews?.filter((review) => review.userId === me?.id)?.at(0) ?? null;
@@ -26,7 +25,7 @@ const Review: FC<ReviewProps> = async ({ post }) => {
         <div className="prose dark:prose-invert lg:prose-xl">
           <h2>Rating & Reviews</h2>
         </div>
-        <ReviewBar rating={rating} totalReviews={reviews?.length ?? 0} />
+        <ReviewBar reviews={reviews} />
         <ReviewForm id={post.id} me={me} myReview={myReview} />
         <ReviewsList reviews={reviews} me={me} />
       </div>
