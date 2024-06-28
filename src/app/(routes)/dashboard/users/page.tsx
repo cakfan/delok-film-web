@@ -3,7 +3,7 @@ import { format } from "date-fns";
 import { ClientColumn } from "./components/columns";
 import ReviewClient from "./components/client";
 import { enUS } from "date-fns/locale";
-import { getAllUsers } from "@/actions/user";
+import { getAllUsers, getMe } from "@/actions/user";
 
 export const metadata: Metadata = {
   title: "Users",
@@ -11,6 +11,7 @@ export const metadata: Metadata = {
 };
 
 export default async function DashboardReviews() {
+  const me = await getMe();
   const users = await getAllUsers();
 
   const formatted: ClientColumn[] = users?.length
@@ -23,6 +24,7 @@ export default async function DashboardReviews() {
           ? `${format(item.createdAt, "PPP", { locale: enUS })}`
           : "NA",
         role: item.role!,
+        isMe: item.id === me?.id,
       }))
     : [];
 

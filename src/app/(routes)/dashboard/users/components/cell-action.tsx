@@ -84,7 +84,11 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
         onConfirm={onDelete}
         loading={isLoading}
       />
-      <Select onValueChange={changeRole} defaultValue={data.role}>
+      <Select
+        onValueChange={changeRole}
+        defaultValue={data.role}
+        disabled={data.isMe}
+      >
         <SelectTrigger className="w-[180px]">
           <SelectValue placeholder={"User role"} defaultChecked />
         </SelectTrigger>

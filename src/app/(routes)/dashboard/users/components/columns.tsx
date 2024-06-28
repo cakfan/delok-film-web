@@ -9,6 +9,7 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 import { ExternalLink } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 
 export type ClientColumn = {
   id: string;
@@ -17,6 +18,7 @@ export type ClientColumn = {
   avatar: string;
   createdAt: string;
   role: string;
+  isMe: boolean;
 };
 
 export const Columns: ColumnDef<ClientColumn>[] = [
@@ -36,6 +38,15 @@ export const Columns: ColumnDef<ClientColumn>[] = [
           </AspectRatio>
         </div>
         <span className="text-sm font-bold">{row.original.name}</span>
+        <Badge
+          variant="secondary"
+          className={cn(
+            "items-center justify-center",
+            !row.original.isMe && "hidden",
+          )}
+        >
+          me
+        </Badge>
       </div>
     ),
   },

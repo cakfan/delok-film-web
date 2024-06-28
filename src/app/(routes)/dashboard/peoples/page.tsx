@@ -4,6 +4,7 @@ import { ClientColumn } from "./components/columns";
 import PeopleClient from "./components/client";
 import { getAge } from "@/actions/utils";
 import { getAllPeoples } from "@/actions/people";
+import { enUS } from "date-fns/locale";
 
 export const metadata: Metadata = {
   title: "Peoples",
@@ -19,7 +20,7 @@ export default async function DashboardPeoples() {
         name: `${item.name} (${getAge(item.birthDate)})`,
         avatar: item.avatar || "/img/default.png",
         birthDate: item.birthDate
-          ? `${format(item.birthDate, "dd MMMM yyyy")}`
+          ? `${format(item.birthDate, "PPP", { locale: enUS })}`
           : "NA",
         nationality: item.nationality?.name!,
       }))

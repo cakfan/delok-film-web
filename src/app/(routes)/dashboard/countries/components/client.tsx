@@ -23,8 +23,8 @@ const CountryClient: React.FC<CountryProps> = ({ data }) => {
   });
 
   return (
-    <div className="flex flex-col gap-4 p-10">
-      <div className="flex items-center justify-between">
+    <div className="flex flex-col gap-4 px-10 py-5">
+      <div className="sticky top-0 z-10 flex items-center justify-between bg-background py-5">
         <Heading
           title={`Countries (${data.length})`}
           description="Manage countries for your website"
