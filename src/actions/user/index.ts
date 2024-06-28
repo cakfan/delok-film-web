@@ -6,3 +6,4 @@ export { isAdmin } from "./is-admin";
 export { isSetup } from "./is-setup";
 export { setupUser } from "./setup";
 export { getAllUsers } from "./get-all";
+export { changeUserRole } from "./change-role";

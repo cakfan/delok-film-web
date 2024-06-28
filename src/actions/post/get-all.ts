@@ -7,6 +7,7 @@ interface PostProps {
   category?: string;
   country?: string;
   query?: string;
+  status?: "draft" | "public";
   sortBy?: "update" | "create";
   sortOrder?: "asc" | "desc";
 }
@@ -17,6 +18,7 @@ export const getAllPost = async ({
   category,
   country,
   query,
+  status,
   sortBy = "update",
   sortOrder = "desc",
 }: PostProps): Promise<PostWithAuthors[] | null> => {
@@ -29,7 +31,7 @@ export const getAllPost = async ({
     take,
     orderBy: orderBy[sortBy],
     where: {
-      status: "public",
+      status: status ?? undefined,
       OR: [
         { title: { contains: query ?? undefined, mode: "insensitive" } },
         { content: { contains: query ?? undefined, mode: "insensitive" } },

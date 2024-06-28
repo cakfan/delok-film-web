@@ -5,18 +5,20 @@ interface PostProps {
   skip?: number;
   take?: number;
   username: string;
+  status?: "draft" | "public";
 }
 
 export const getPostsByAuthor = async ({
   skip = 0,
   take = 10,
   username,
+  status,
 }: PostProps): Promise<PostWithAuthors[] | null> => {
   const posts = await prismadb.post.findMany({
     skip,
     take,
     where: {
-      status: "public",
+      status: status ?? undefined,
       OR: [{ authors: { some: { username } } }],
     },
     include: {

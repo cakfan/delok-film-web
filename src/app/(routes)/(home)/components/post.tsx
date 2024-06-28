@@ -3,7 +3,7 @@ import DFCard from "@/components/card";
 import { getAllPost } from "@/actions/post";
 
 const HomePost = async () => {
-  const posts = await getAllPost({});
+  const posts = await getAllPost({ status: "public" });
   if (posts?.length) {
     return (
       <div className="my-8 grid w-full grid-cols-2 gap-4 md:grid-cols-4 md:gap-y-14 lg:grid-cols-5">

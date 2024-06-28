@@ -8,6 +8,7 @@ import {
   SquareStack,
   UsersRound,
   MessageSquareDot,
+  BookUser,
 } from "lucide-react";
 
 export const AdminMenu = async () => {
@@ -23,6 +24,12 @@ export const AdminMenu = async () => {
     title: "Reviews",
     href: dashboardUrl + "/reviews",
     icon: <MessageSquareDot {...iconStyle} />,
+  };
+
+  const users = {
+    title: "Users",
+    href: dashboardUrl + "/users",
+    icon: <BookUser {...iconStyle} />,
   };
 
   const menu: SidebarNavItem[] = [
@@ -64,7 +71,10 @@ export const AdminMenu = async () => {
     },
   ];
 
-  if (isAdmin) menu[0].items?.push(reviews);
+  if (isAdmin) {
+    menu[0].items?.push(reviews);
+    menu[0].items?.push(users);
+  }
 
   return menu;
 };

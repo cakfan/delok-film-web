@@ -29,9 +29,13 @@ const PostResult = async ({ slug }: { slug?: string }) => {
 
   const isMovie = post.type === "movie";
 
-  const releaseDate = format(isMovie ? post.releaseDate! : new Date(), "PP", {
-    locale: enUS,
-  });
+  const releaseDate = format(
+    (isMovie ? post.releaseDate : post.airedStart) || new Date(),
+    "PP",
+    {
+      locale: enUS,
+    },
+  );
 
   const airedRange =
     !isMovie && post.airedStart && post.airedEnd
@@ -52,7 +56,10 @@ const PostResult = async ({ slug }: { slug?: string }) => {
           </span>
         </div>
         <div className="prose flex items-start gap-2 dark:prose-invert lg:prose-xl">
-          <h1 className="flex-1">{post.title}</h1>
+          <h1 className="flex-1">
+            {post.title}{" "}
+            {`(${isMovie ? post.releaseDate?.getFullYear() : post.airedStart?.getFullYear()})`}
+          </h1>
           <a
             href={`#reviews`}
             className="flex items-center gap-2 no-underline"
