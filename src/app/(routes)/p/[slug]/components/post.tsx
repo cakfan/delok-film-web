@@ -30,7 +30,7 @@ const PostResult = async ({ slug }: { slug?: string }) => {
   const isMovie = post.type === "movie";
 
   const releaseDate = format(
-    (isMovie ? post.releaseDate : post.airedStart) || new Date(),
+    (isMovie ? post.releaseDate : post.airedStart) ?? new Date(),
     "PP",
     {
       locale: enUS,
@@ -48,9 +48,9 @@ const PostResult = async ({ slug }: { slug?: string }) => {
           <Badge
             className={cn("w-fit font-bold", !post.contentRating && "hidden")}
           >
-            {post.contentRating ?? ""}
+            {post.contentRating}
           </Badge>
-          <span className="flex items-center gap-2 font-semibold text-muted-foreground">
+          <span className="ml-auto flex items-center gap-2 font-semibold text-muted-foreground">
             <CalendarFoldIcon className="h-4 w-4" />
             {releaseDate}
           </span>
