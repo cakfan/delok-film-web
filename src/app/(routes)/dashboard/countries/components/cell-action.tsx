@@ -69,14 +69,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-          <DropdownMenuItem
-            className="cursor-pointer"
-            onClick={() => onCopy(data.id)}
-          >
-            <Copy className="mr-2 h-4 w-4" />
-            Copy Id
-          </DropdownMenuItem>
-          <DropdownMenuItem className="cursor-pointer">
+          <DropdownMenuItem asChild className="cursor-pointer">
             <Link href={`/editor?type=country&id=${data.id}`} className="flex">
               <Edit className="mr-2 h-4 w-4" />
               Update

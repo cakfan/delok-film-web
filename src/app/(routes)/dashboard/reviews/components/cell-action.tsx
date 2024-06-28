@@ -71,13 +71,6 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
           <DropdownMenuItem
-            className="cursor-pointer"
-            onClick={() => onCopy(data.id)}
-          >
-            <Copy className="mr-2 h-4 w-4" />
-            Copy Id
-          </DropdownMenuItem>
-          <DropdownMenuItem
             className="cursor-pointer text-destructive"
             onClick={() => setOpen(true)}
           >

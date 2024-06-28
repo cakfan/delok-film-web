@@ -28,6 +28,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
 
   const [isLoading, setIsLoading] = useState(false);
   const [open, setOpen] = useState(false);
+  const [openMenu, setOpenMenu] = useState(false);
 
   const onCopy = (id: string) => {
     navigator.clipboard.writeText(id);
@@ -60,7 +61,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
         onConfirm={onDelete}
         loading={isLoading}
       />
-      <DropdownMenu>
+      <DropdownMenu open={openMenu} onOpenChange={setOpenMenu}>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="h-8 w-8 p-0">
             <span className="sr-only">Open menu</span>
@@ -70,13 +71,9 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
           <DropdownMenuItem
+            asChild
             className="flex cursor-pointer items-center"
-            onClick={() => onCopy(data.id)}
           >
-            <Copy className="mr-2 h-4 w-4" />
-            Copy Id
-          </DropdownMenuItem>
-          <DropdownMenuItem className="flex cursor-pointer items-center">
             <Link href={`/editor?type=category&id=${data.id}`} className="flex">
               <Edit className="mr-2 h-4 w-4" />
               Update
