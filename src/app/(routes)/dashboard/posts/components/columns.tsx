@@ -39,21 +39,15 @@ export const Columns: ColumnDef<ClientColumn>[] = [
           </AspectRatio>
         </div>
         <span className="text-lg font-bold">{row.original.title}</span>
+        <Link
+          href={`/p/${row.original.slug}`}
+          title={"View: " + row.original.title}
+          target="_blank"
+          className={cn(buttonVariants({ variant: "link" }), "flex gap-2")}
+        >
+          <ExternalLink className="h-4 w-4" />
+        </Link>
       </div>
-    ),
-  },
-  {
-    header: " ",
-    cell: ({ row }) => (
-      <Link
-        href={`/p/${row.original.slug}`}
-        title={row.original.title}
-        target="_blank"
-        className={cn(buttonVariants({ variant: "link" }), "flex gap-2")}
-      >
-        <ExternalLink className="h-4 w-4" />
-        View
-      </Link>
     ),
   },
   {

@@ -1,23 +1,17 @@
 "use client";
 
-import { Copy, Edit, MoreHorizontalIcon, Trash } from "lucide-react";
+import { Edit, Trash } from "lucide-react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 import { ClientColumn } from "./columns";
 
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { AlertModal } from "@/components/alert";
 import Link from "next/link";
 import { deleteCountry } from "@/actions/country";
+import { cn } from "@/lib/utils";
 
 interface CellActionProps {
   data: ClientColumn;
@@ -28,11 +22,6 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
 
   const [isLoading, setIsLoading] = useState(false);
   const [open, setOpen] = useState(false);
-
-  const onCopy = (id: string) => {
-    navigator.clipboard.writeText(id);
-    toast.success("Country id copied to the clipboard");
-  };
 
   const onDelete = async () => {
     try {
@@ -60,30 +49,25 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
         onConfirm={onDelete}
         loading={isLoading}
       />
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button variant="ghost" className="h-8 w-8 p-0">
-            <span className="sr-only">Open menu</span>
-            <MoreHorizontalIcon className="h-4 w-4" />
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="end">
-          <DropdownMenuLabel>Actions</DropdownMenuLabel>
-          <DropdownMenuItem asChild className="cursor-pointer">
-            <Link href={`/editor?type=country&id=${data.id}`} className="flex">
-              <Edit className="mr-2 h-4 w-4" />
-              Update
-            </Link>
-          </DropdownMenuItem>
-          <DropdownMenuItem
-            className="cursor-pointer text-destructive"
-            onClick={() => setOpen(true)}
-          >
-            <Trash className="mr-2 h-4 w-4" />
-            Delete
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
+
+      <div className="flex">
+        <Button
+          className="rounded-full text-destructive hover:text-destructive"
+          onClick={() => setOpen(true)}
+          variant="ghost"
+          size="icon"
+          title="Delete"
+        >
+          <Trash className="h-4 w-4" />
+        </Button>
+        <Link
+          href={`/editor?type=country&id=${data.id}`}
+          className={cn(buttonVariants({ variant: "link", size: "icon" }))}
+          title="Edit Post"
+        >
+          <Edit className="h-4 w-4" />
+        </Link>
+      </div>
     </>
   );
 };

@@ -101,7 +101,7 @@ const PostResult = async ({ slug }: { slug?: string }) => {
           </AspectRatio>
         </div>
         <TrailerDialog title={post.title} url={post.trailer} />
-        <div className="detail prose mt-10 flex flex-col gap-2 rounded-md border border-input px-3 py-2 ring-offset-background dark:prose-invert">
+        <div className="detail prose mt-10 flex w-full flex-col gap-2 rounded-md border border-input px-3 py-2 ring-offset-background dark:prose-invert">
           <h2>Details</h2>
           <div className="w-full">
             <span className="font-bold">Native Title: </span>{" "}
