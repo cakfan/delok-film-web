@@ -1,4 +1,4 @@
-import { Review, User } from "@prisma/client";
+import { Post, User } from "@prisma/client";
 import { z } from "zod";
 
 export const ReviewSchema = z.object({
@@ -15,4 +15,8 @@ export type ReviewFormValues = z.infer<typeof ReviewSchema>;
 
 export interface ReviewWithAuthor extends ReviewFormValues {
   author: User;
+}
+
+export interface ReviewWithPost extends ReviewWithAuthor {
+  post?: Post | null;
 }

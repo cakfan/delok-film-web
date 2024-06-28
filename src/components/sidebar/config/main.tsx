@@ -5,6 +5,7 @@ import { Clapperboard, Home, LayoutDashboard, Search } from "lucide-react";
 export const MainMenu = async () => {
   const me = await getMe();
   const isNotMember = me?.role !== "member";
+  console.log("me:", me);
 
   const iconStyle = {
     className: "h-5 w-5 lg:h-6 lg:w-6",
@@ -40,7 +41,7 @@ export const MainMenu = async () => {
     },
   ];
 
-  if (isNotMember) menu[0].items?.splice(1, 0, dashboard);
+  if (me && isNotMember) menu[0].items?.splice(1, 0, dashboard);
 
   return menu;
 };

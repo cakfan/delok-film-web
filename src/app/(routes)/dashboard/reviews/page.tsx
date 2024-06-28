@@ -23,6 +23,7 @@ export default async function DashboardReviews() {
           : "NA",
         value: item.value,
         content: item.content,
+        slug: item.post?.slug!,
       }))
     : [];
 

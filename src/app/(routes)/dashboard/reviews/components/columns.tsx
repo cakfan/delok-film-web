@@ -5,6 +5,10 @@ import { CellAction } from "./cell-action";
 import { BrandIcons } from "@/components/icons";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import Image from "next/image";
+import Link from "next/link";
+import { cn } from "@/lib/utils";
+import { buttonVariants } from "@/components/ui/button";
+import { ExternalLink } from "lucide-react";
 
 export type ClientColumn = {
   id: string;
@@ -13,6 +17,7 @@ export type ClientColumn = {
   createdAt: string;
   value: number;
   content: string;
+  slug: string;
 };
 
 export const Columns: ColumnDef<ClientColumn>[] = [
@@ -33,6 +38,20 @@ export const Columns: ColumnDef<ClientColumn>[] = [
         </div>
         <span className="text-sm font-bold">{row.original.name}</span>
       </div>
+    ),
+  },
+  {
+    header: " ",
+    cell: ({ row }) => (
+      <Link
+        href={`/p/${row.original.slug}#${row.original.id}`}
+        title={row.original.content.replace(/(<([^>]+)>)/gi, "")}
+        target="_blank"
+        className={cn(buttonVariants({ variant: "link" }), "flex gap-2")}
+      >
+        <ExternalLink className="h-4 w-4" />
+        View
+      </Link>
     ),
   },
   {

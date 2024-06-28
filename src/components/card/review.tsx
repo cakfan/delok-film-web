@@ -51,6 +51,7 @@ const ReviewCard: FC<ReviewCardProps> = ({ data, isMine = false }) => {
         loading={isLoading}
       />
       <div
+        id={data.id}
         className={cn(
           "flex flex-col gap-4 rounded-md bg-muted px-3 py-2",
           isMine && "ring-2 ring-primary/50",
