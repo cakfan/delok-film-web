@@ -314,6 +314,24 @@ const FormMovie: React.FC<FormMovieProps> = ({
               />
               <FormField
                 control={form.control}
+                name="seasons"
+                render={({ field }) => (
+                  <FormItem className="md:w-[240px]">
+                    <FormLabel>Seasons</FormLabel>
+                    <FormControl>
+                      <Input
+                        disabled={isLoading}
+                        placeholder="Seasons"
+                        {...field}
+                        value={field.value ?? undefined}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
                 name="director"
                 render={({ field }) => (
                   <FormItem className="md:w-[240px]">

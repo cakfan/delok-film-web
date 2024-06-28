@@ -112,6 +112,9 @@ const PostResult = async ({ slug }: { slug?: string }) => {
             {post.alsoKnownAs ?? "-"}
           </div>
           <div className="w-full">
+            <span className="font-bold">Seasons: </span> {post.seasons ?? "-"}
+          </div>
+          <div className="w-full">
             <span className="font-bold">Director: </span> {post.director ?? "-"}
           </div>
           <div className="w-full">

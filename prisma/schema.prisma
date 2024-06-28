@@ -134,6 +134,7 @@ model Post {
   contentRating String?    @map("content_rating")
   screenWriter  String?    @map("screen_writer")
   director      String?
+  seasons       Int?
   type          String
   releaseDate   DateTime?  @map("release_date")
   producer      String?

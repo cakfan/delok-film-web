@@ -26,6 +26,7 @@ export const PostBaseSchema = z.object({
   contentRating: z.union([z.string().nullable(), z.undefined()]),
   screenWriter: z.union([z.string().nullable(), z.undefined()]),
   director: z.union([z.string().nullable(), z.undefined()]),
+  seasons: z.union([z.coerce.number().nullable(), z.undefined()]),
   categories: z.union([
     z
       .object({

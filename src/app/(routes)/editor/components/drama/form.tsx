@@ -72,7 +72,6 @@ const FormDrama: React.FC<FormDramaProps> = ({
       trailer: "",
       contentRating: "",
       screenWriter: "",
-      episodes: 0,
       network: "",
       airedStart: new Date(),
       airedEnd: new Date(),
@@ -311,6 +310,24 @@ const FormDrama: React.FC<FormDramaProps> = ({
                         {...field}
                         value={field.value || "" || undefined}
                         onChange={field.onChange}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="seasons"
+                render={({ field }) => (
+                  <FormItem className="md:w-[240px]">
+                    <FormLabel>Seasons</FormLabel>
+                    <FormControl>
+                      <Input
+                        disabled={isLoading}
+                        placeholder="Seasons"
+                        {...field}
+                        value={field.value ?? undefined}
                       />
                     </FormControl>
                     <FormMessage />
