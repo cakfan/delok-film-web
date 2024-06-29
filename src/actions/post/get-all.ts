@@ -31,15 +31,15 @@ export const getAllPost = async ({
     take,
     orderBy: orderBy[sortBy],
     where: {
-      status: status ?? undefined,
+      status: status || undefined,
       OR: [
-        { title: { contains: query ?? undefined, mode: "insensitive" } },
-        { content: { contains: query ?? undefined, mode: "insensitive" } },
+        { title: { contains: query || undefined, mode: "insensitive" } },
+        { content: { contains: query || undefined, mode: "insensitive" } },
         {
-          categories: { some: { slug: category ?? undefined } },
+          categories: { some: { slug: category || undefined } },
         },
         {
-          countries: { some: { slug: country ?? undefined } },
+          countries: { some: { slug: country || undefined } },
         },
       ],
     },
