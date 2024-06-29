@@ -15,8 +15,8 @@ interface PostProps {
 }
 
 export const getAllPost = async ({
-  skip = 0,
-  take = 10,
+  skip,
+  take,
   category,
   country,
   query,
@@ -29,8 +29,8 @@ export const getAllPost = async ({
     create: { createdAt: sortOrder },
   };
   const posts = await prismadb.post.findMany({
-    skip,
-    take,
+    skip: skip || undefined,
+    take: take || undefined,
     orderBy: orderBy[sortBy],
     where: {
       status: status || undefined,
