@@ -1,3 +1,5 @@
+"use server";
+
 import prismadb from "@/config/prisma";
 import { PostWithAuthors } from "@/types/post";
 
@@ -52,6 +54,7 @@ export const getAllPost = async ({
           people: true,
         },
       },
+      reviews: true,
     },
   });
 

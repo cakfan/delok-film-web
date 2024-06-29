@@ -57,6 +57,7 @@ export const getRelated = async (
           people: true,
         },
       },
+      reviews: true,
     },
   });
 

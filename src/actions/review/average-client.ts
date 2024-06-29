@@ -1,7 +1,8 @@
 import { ReviewWithAuthor } from "@/types/post/review";
+import { Review } from "@prisma/client";
 
 type Props = {
-  reviews: ReviewWithAuthor[];
+  reviews: Review[] | ReviewWithAuthor[];
 };
 
 export const calculateAverageRatingClient = ({ reviews }: Props) => {

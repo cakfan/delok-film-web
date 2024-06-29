@@ -1,6 +1,9 @@
 import PostSkeleton from "@/components/card/skeleton";
 import { Suspense } from "react";
-import HomePost from "./components/post";
+import HomePost from "./components/post-wrapper";
+import QueryProvider from "./components/query-provider";
+import { getAllPost } from "@/actions/post";
+import RecentPost from "./components/recent-post";
 
 export default async function Home() {
   return (
@@ -10,8 +13,8 @@ export default async function Home() {
       </div>
 
       <div className="w-full">
-        <Suspense fallback={<PostSkeleton total={6} />}>
-          <HomePost />
+        <Suspense fallback={<PostSkeleton total={7} />}>
+          <RecentPost />
         </Suspense>
       </div>
     </div>

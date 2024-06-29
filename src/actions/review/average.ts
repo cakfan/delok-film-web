@@ -1,3 +1,5 @@
+"use server";
+
 import prismadb from "@/config/prisma";
 import { calculateAverageRatingClient } from "./average-client";
 

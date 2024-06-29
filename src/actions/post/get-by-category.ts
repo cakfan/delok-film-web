@@ -41,6 +41,7 @@ export const getPostByCategory = async ({
           people: true,
         },
       },
+      reviews: true,
     },
   });
 

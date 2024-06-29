@@ -28,6 +28,7 @@ export const getPostsByPeople = async ({
       },
       categories: true,
       countries: true,
+      reviews: true,
     },
   });
 
