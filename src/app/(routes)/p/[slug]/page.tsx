@@ -4,11 +4,6 @@ import { getPost } from "@/actions/post";
 import PostResult from "./components/post";
 import PostSkeleton from "./components/skeleton";
 
-export const getPostDetail = cache(async (slug?: string) => {
-  const post = await getPost({ slug });
-  return post;
-});
-
 export interface DetailPageProps {
   params: { slug?: string };
 }
@@ -16,7 +11,7 @@ export interface DetailPageProps {
 export async function generateMetadata({
   params: { slug },
 }: DetailPageProps): Promise<Metadata> {
-  const post = await getPostDetail(slug);
+  const post = await getPost({ slug });
   return {
     title: post?.title,
     description: post?.content.replace(/(<([^>]+)>)/gi, ""),

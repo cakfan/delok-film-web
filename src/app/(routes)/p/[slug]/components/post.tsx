@@ -18,10 +18,10 @@ import PostSkeleton from "@/components/card/skeleton";
 import ReviewSkeleton from "./review/skeleton";
 import CategoriesItems from "./categories";
 import CountriesItems from "./countries";
-import { getPostDetail } from "../page";
+import { getPost } from "@/actions/post";
 
 const PostResult = async ({ slug }: { slug?: string }) => {
-  const post = await getPostDetail(slug);
+  const post = await getPost({ slug });
 
   if (!post) notFound();
 

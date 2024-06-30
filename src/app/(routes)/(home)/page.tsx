@@ -1,8 +1,5 @@
 import PostSkeleton from "@/components/card/skeleton";
 import { Suspense } from "react";
-import HomePost from "./components/post-wrapper";
-import QueryProvider from "./components/query-provider";
-import { getAllPost } from "@/actions/post";
 import RecentPost from "./components/recent-post";
 
 export default async function Home() {

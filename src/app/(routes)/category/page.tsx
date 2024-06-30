@@ -27,7 +27,7 @@ export default async function CategoryPage({
 }: CategoryProps) {
   const categories = await getAllCategories({});
   return (
-    <div className="min-h-screen w-full px-20 py-10">
+    <div className="min-h-screen w-screen px-10 py-5 lg:px-20 lg:py-10">
       <div className="prose dark:prose-invert">
         <h1 className="mb-2">Category</h1>
         <p className="m-0">Find movies and dramas by category</p>
