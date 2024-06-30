@@ -14,11 +14,11 @@ export async function generateMetadata({
   const people = await getPeople({ slug });
   return {
     title: `${people?.name} ${people?.nativeName ? `(${people.nativeName})` : ""}`,
-    description: people?.bio,
+    description: people?.bio.replace(/(<([^>]+)>)/gi, ""),
     openGraph: {
       title: `${people?.name} ${people?.nativeName ? `(${people.nativeName})` : ""}`,
-      description: people?.bio,
-      images: [people?.avatar || "/img/default.png"],
+      description: people?.bio.replace(/(<([^>]+)>)/gi, ""),
+      images: [people?.avatar || "/img/og/default.png"],
     },
   };
 }

@@ -45,7 +45,7 @@ export const Columns: ColumnDef<ClientColumn>[] = [
     cell: ({ row }) => (
       <Link
         href={`/p/${row.original.slug}#${row.original.id}`}
-        title={row.original.content.replace(/(<([^>]+)>)/gi, "")}
+        title={row.original.content}
         target="_blank"
         className={cn(buttonVariants({ variant: "link" }), "flex gap-2")}
       >

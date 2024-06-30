@@ -22,7 +22,7 @@ export default async function DashboardReviews() {
           ? `${format(item.createdAt, "PPP", { locale: enUS })}`
           : "NA",
         value: item.value,
-        content: item.content,
+        content: item.content.replace(/(<([^>]+)>)/gi, ""),
         slug: item.post?.slug!,
       }))
     : [];

@@ -11,7 +11,7 @@ const RelatedPostItem: FC<RelatedPostItemProps> = async ({ postId }) => {
   const posts = await getRelated(postId);
   if (posts?.length) {
     return (
-      <div className="grid w-full grid-cols-6 gap-4 md:grid-cols-4 lg:grid-cols-2">
+      <div className="grid w-full grid-cols-2 gap-4 md:grid-cols-4 lg:grid-cols-2">
         <Each of={posts} render={(post) => <DFCard post={post} />} />
       </div>
     );

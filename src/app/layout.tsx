@@ -23,15 +23,33 @@ export const metadata: Metadata = {
     "japanese dramas",
     "korean movies",
     "korean drama",
+    "Asian movies",
+    "Asian dramas",
+    "Korean dramas",
+    "Chinese films",
+    "Japanese cinema",
+    "Asian entertainment",
+    "movie reviews",
+    "drama recommendations",
   ],
   title: {
-    default: "Delok Film",
+    default: "Delok Film — Explore Asian Movies and Dramas",
     template: "%s — Delok Film",
   },
-  description: "Discover movies and dramas",
+  description:
+    "Discover Delok Film, your ultimate source for Asian movies and dramas. Dive into a curated collection of Korean dramas, Chinese blockbusters, Japanese films, and more.",
+  authors: {
+    name: "Taufan Fatahillah",
+    url: "https://instagram.com/withcakfan",
+  },
   openGraph: {
-    description: "Discover asian movies and dramas",
-    images: [""],
+    title: "Delok Film — Explore Asian Movies and Dramas",
+    description:
+      "Delok Film is your gateway to Asian cinema. Explore a diverse selection of movies and dramas from Korea, China, Japan, and beyond. Join our community of cinephiles today!",
+    images: ["/img/og/default.png"],
+  },
+  twitter: {
+    card: "summary_large_image",
   },
 };
 

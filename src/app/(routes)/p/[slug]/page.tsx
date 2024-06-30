@@ -1,24 +1,32 @@
-import { Suspense } from "react";
+import { Suspense, cache } from "react";
 import type { Metadata } from "next";
 import { getPost } from "@/actions/post";
 import PostResult from "./components/post";
 import PostSkeleton from "./components/skeleton";
 
-interface DetailPageProps {
+export const getPostDetail = cache(async (slug?: string) => {
+  const post = await getPost({ slug });
+  return post;
+});
+
+export interface DetailPageProps {
   params: { slug?: string };
 }
 
 export async function generateMetadata({
   params: { slug },
 }: DetailPageProps): Promise<Metadata> {
-  const post = await getPost({ slug });
+  const post = await getPostDetail(slug);
   return {
     title: post?.title,
-    description: post?.content,
+    description: post?.content.replace(/(<([^>]+)>)/gi, ""),
     openGraph: {
-      title: post?.title,
-      description: post?.content,
-      images: [post?.poster || "/img/default.png"],
+      title:
+        post && post.title.length < 30
+          ? `${post?.title} — Delok Film`
+          : post?.title,
+      description: post?.content.replace(/(<([^>]+)>)/gi, ""),
+      images: [post?.poster || "/img/og/default.png"],
     },
   };
 }

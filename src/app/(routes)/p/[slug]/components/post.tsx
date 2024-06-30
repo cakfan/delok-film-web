@@ -1,6 +1,5 @@
 import { Suspense } from "react";
 import Image from "next/image";
-import { getPost } from "@/actions/post";
 import { calculateAverageRating } from "@/actions/review";
 import { notFound } from "next/navigation";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
@@ -19,9 +18,10 @@ import PostSkeleton from "@/components/card/skeleton";
 import ReviewSkeleton from "./review/skeleton";
 import CategoriesItems from "./categories";
 import CountriesItems from "./countries";
+import { getPostDetail } from "../page";
 
 const PostResult = async ({ slug }: { slug?: string }) => {
-  const post = await getPost({ slug });
+  const post = await getPostDetail(slug);
 
   if (!post) notFound();
 
