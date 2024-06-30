@@ -20,7 +20,7 @@ export const generateMetadata = ({
 
 export default function SearchPage({ searchParams: { q } }: SearchProps) {
   return (
-    <div className="min-h-screen w-full px-20 py-10">
+    <div className="min-h-screen w-full px-10 py-5 lg:px-20 lg:py-10">
       <SearchBox />
       <div className="mt-14 flex w-full flex-col gap-10">
         <Suspense fallback={<PostSkeleton total={4} />}>

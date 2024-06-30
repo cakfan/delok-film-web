@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default async function DashboardPage() {
   return (
-    <div className="flex min-h-screen w-full flex-col gap-10 p-10 lg:px-20">
+    <div className="flex min-h-screen w-full flex-col gap-10 px-10 py-5 lg:px-20 lg:py-10">
       <div className="prose dark:prose-invert">
         <h1 className="mb-2">Dashboard</h1>
         <p className="my-0">Manage data on this website</p>
