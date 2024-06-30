@@ -12,7 +12,7 @@ export default async function Home() {
         <h1>Recent</h1>
       </div>
 
-      <div className="w-full">
+      <div className="w-full pb-10">
         <Suspense fallback={<PostSkeleton total={7} />}>
           <RecentPost />
         </Suspense>
