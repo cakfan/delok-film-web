@@ -1,16 +1,17 @@
 "use client";
 
 import { FC } from "react";
-import { PostWithAuthors } from "@/types/post";
 import { FacebookShare, TwitterShare, InstapaperShare } from "react-share-kit";
 import { PeopleWithAuthors } from "@/types/post/people";
+import { useOrigin } from "@/hooks/useOrigin";
 
 interface ShareButtonProps {
   people: PeopleWithAuthors;
 }
 
 const ShareButton: FC<ShareButtonProps> = ({ people }) => {
-  const url = `${process.env.HOMEPAGE_URL}/people/${people.slug}`;
+  const origin = useOrigin();
+  const url = `${origin}/people/${people.slug}`;
   return (
     <div className="share-button my-10 flex flex-wrap items-center justify-center gap-4">
       <FacebookShare
