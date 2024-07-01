@@ -43,7 +43,7 @@ const DramaCard: FC<DramaCardProps> = ({ post, rating }) => {
         </div>
         <div className="flex w-full flex-col gap-2 px-2 py-1.5">
           <div className="prose text-center dark:prose-invert">
-            <h4 className="line-clamp-1 text-ellipsis">{post.title}</h4>
+            <h2 className="line-clamp-1 text-ellipsis">{post.title}</h2>
           </div>
         </div>
       </Link>

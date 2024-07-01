@@ -40,10 +40,12 @@ const DetailCast: FC<DetailCastsProps> = ({ post }) => {
                 </AspectRatio>
               </div>
               <div className="flex w-28 flex-col overflow-hidden text-ellipsis">
-                <span className="line-clamp-1 text-lg font-bold text-primary">
+                <span className="line-clamp-1 text-lg font-bold">
                   {item.people?.name}
                 </span>
-                <span className="text-xs">{item.characterName}</span>
+                <span className="text-xs text-muted-foreground">
+                  {item.characterName}
+                </span>
               </div>
             </Link>
           )}

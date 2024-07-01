@@ -35,6 +35,7 @@ export function SidebarThemeToggle({
         <Button
           variant="sidebar"
           size="sidebar"
+          aria-label="Change theme button"
           className="flex w-full border-none focus-visible:border-none focus-visible:ring-transparent focus-visible:ring-offset-transparent"
         >
           <div className="text-2xl transition-all duration-100 ease-in-out group-hover:scale-105">

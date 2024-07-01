@@ -76,6 +76,7 @@ const SidebarLinkItem = ({
         )}
         target={item.external ? "_blank" : ""}
         rel={item.external ? "noreferrer" : ""}
+        aria-label={`Navigate to ${item.title}`}
       >
         <div
           className={cn(
