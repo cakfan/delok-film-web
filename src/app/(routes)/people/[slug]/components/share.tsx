@@ -26,7 +26,7 @@ const ShareButton: FC<ShareButtonProps> = ({ people }) => {
         borderRadius={100}
         url={url}
         title={people.name}
-        hashtags={["#delokfilm"]}
+        hashtags={["delokfilm"]}
       />
       <InstapaperShare size={32} borderRadius={100} url={url} />
     </div>
