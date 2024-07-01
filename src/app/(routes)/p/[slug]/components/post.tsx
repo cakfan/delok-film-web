@@ -19,6 +19,7 @@ import ReviewSkeleton from "./review/skeleton";
 import CategoriesItems from "./categories";
 import CountriesItems from "./countries";
 import { getPost } from "@/actions/post";
+import ShareButton from "./share";
 
 const PostResult = async ({ slug }: { slug?: string }) => {
   const post = await getPost({ slug });
@@ -101,6 +102,7 @@ const PostResult = async ({ slug }: { slug?: string }) => {
           </AspectRatio>
         </div>
         <TrailerDialog title={post.title} url={post.trailer} />
+        <ShareButton post={post} />
         <div className="detail prose mt-10 flex w-full flex-col gap-2 rounded-md border border-input px-3 py-2 ring-offset-background dark:prose-invert">
           <h2>Details</h2>
           <div className="w-full">

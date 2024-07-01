@@ -10,6 +10,7 @@ import { enUS } from "date-fns/locale";
 import { getAge } from "@/actions/utils";
 import PostResult from "./post-result";
 import FooterComponent from "@/components/footer";
+import ShareButton from "./share";
 
 interface PeopleResultProps {
   slug?: string;
@@ -43,6 +44,8 @@ const PeopleResult: FC<PeopleResultProps> = async ({ slug }) => {
             />
           </AspectRatio>
         </div>
+
+        <ShareButton people={people} />
 
         <div className="detail sticky top-10 mt-10 flex flex-col gap-2 px-3 py-2">
           <div className="prose flex flex-col gap-2 rounded-md border border-input px-3 py-2 ring-offset-background dark:prose-invert">
