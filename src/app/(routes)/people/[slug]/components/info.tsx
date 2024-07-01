@@ -46,7 +46,7 @@ const MoreInfo: FC<MoreInfoProps> = ({ people }) => {
             <span className="w-fit font-bold">Nationality: </span>{" "}
             <span className="flex-1">
               <Link
-                href={`/country/${people.nationality.slug}`}
+                href={`/country?q=${people.nationality.slug}`}
                 title={people.nationality.name}
                 className="flex items-center gap-1 no-underline hover:text-primary"
               >
