@@ -39,6 +39,7 @@ const PostResult = async ({ slug }: { slug?: string }) => {
         <div className="prose flex w-full justify-between dark:prose-invert lg:prose-xl">
           <Badge
             className={cn("w-fit font-bold", !post.contentRating && "hidden")}
+            variant="secondary"
           >
             {post.contentRating}
           </Badge>

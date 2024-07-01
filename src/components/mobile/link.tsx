@@ -14,6 +14,7 @@ const MobileLink = ({ item }: { item: SidebarNavItem }) => {
       <Link
         href={item.href}
         className={cn("flex-1 flex-grow", isCurrent && "text-primary")}
+        aria-label={`Navigate to ${item.title}`}
       >
         <div className="mx-auto h-5 w-5">
           {item.isProfile ? (
