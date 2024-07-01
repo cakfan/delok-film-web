@@ -22,7 +22,7 @@ const TrailerDialog: FC<TrailerProps> = ({ url, title }) => {
           Trailer
         </Button>
       </DialogTrigger>
-      <DialogContent className="max-w-screen w-[70%] border-none bg-transparent text-white">
+      <DialogContent className="max-w-screen w-full border-none bg-transparent text-white md:w-4/5">
         <div className="p-2">
           <div className="aspect-video h-full w-full">
             <iframe
