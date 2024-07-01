@@ -70,9 +70,7 @@ const SidebarLinkItem = ({
         className={cn(
           "group mb-1 flex w-full items-center rounded-xl px-4 py-3 text-foreground transition-all duration-100 ease-in-out hover:lg:bg-primary/10",
           item.disabled && "cursor-not-allowed opacity-60",
-          isCurrent
-            ? "font-bold text-primary lg:bg-primary/10"
-            : "currentColor",
+          isCurrent ? "font-bold text-primary lg:bg-primary/5" : "currentColor",
         )}
         target={item.external ? "_blank" : ""}
         rel={item.external ? "noreferrer" : ""}
