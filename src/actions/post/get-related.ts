@@ -3,26 +3,29 @@ import { PostWithAuthors } from "@/types/post";
 
 export const getRelated = async (
   postId: string,
+  categoryIds: string[],
+  countryIds: string[],
 ): Promise<PostWithAuthors[] | null> => {
-  const post = await prismadb.post.findUnique({
-    where: {
-      id: postId,
-    },
-    include: {
-      categories: true,
-      countries: true,
-      casts: { include: { people: true } },
-    },
-  });
+  // const post = await prismadb.post.findUnique({
+  //   where: {
+  //     id: postId,
+  //   },
+  //   include: {
+  //     categories: true,
+  //     countries: true,
+  //     casts: { include: { people: true } },
+  //   },
+  // });
 
-  if (!post) return null;
+  // if (!post) return null;
 
   // Extract relevant IDs for categories, countries, and casts
-  const categoryIds = post.categories.map((category) => category.id) || [];
-  const countryIds = [...(post.countries.map((country) => country.id) || [])];
-  const castIds = [...(post.casts.map((cast) => cast.peopleId) || [])];
+  // const categoryIds = post.categories.map((category) => category.id) || [];
+  // const countryIds = [...(post.countries.map((country) => country.id) || [])];
+  // const castIds = [...(post.casts.map((cast) => cast.peopleId) || [])];
 
   const posts = await prismadb.post.findMany({
+    take: 4,
     where: {
       id: { not: postId },
       OR: [
@@ -40,13 +43,13 @@ export const getRelated = async (
             },
           },
         },
-        {
-          casts: {
-            some: {
-              peopleId: { in: castIds },
-            },
-          },
-        },
+        // {
+        //   casts: {
+        //     some: {
+        //       peopleId: { in: castIds },
+        //     },
+        //   },
+        // },
       ],
     },
     include: {

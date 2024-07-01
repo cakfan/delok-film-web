@@ -1,15 +1,16 @@
 import { FC } from "react";
 import RelatedPostItem from "./post";
+import { PostWithAuthors } from "@/types/post";
 
 interface RelatedPostProps {
-  postId: string;
+  post: PostWithAuthors;
 }
 
-const RelatedPost: FC<RelatedPostProps> = async ({ postId }) => {
+const RelatedPost: FC<RelatedPostProps> = async ({ post }) => {
   return (
     <div className="related prose mt-10 flex flex-col dark:prose-invert">
       <h2>Related</h2>
-      <RelatedPostItem postId={postId} />
+      <RelatedPostItem post={post} />
     </div>
   );
 };

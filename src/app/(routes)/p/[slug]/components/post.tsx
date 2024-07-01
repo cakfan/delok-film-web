@@ -90,7 +90,7 @@ const PostResult = async ({ slug }: { slug?: string }) => {
         </div>
 
         <Suspense fallback={<PostSkeleton />}>
-          <RelatedPost postId={post.id!} />
+          <RelatedPost post={post} />
         </Suspense>
         <FooterComponent />
       </div>
