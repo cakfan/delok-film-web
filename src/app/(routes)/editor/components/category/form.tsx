@@ -120,9 +120,9 @@ const FormCategory: React.FC<FormCategoryProps> = ({ initialData }) => {
                 <Button
                   type="button"
                   disabled={isLoading}
-                  variant="destructive"
+                  variant="ghost"
                   size="icon"
-                  className="rounded-full"
+                  className="text-destructive"
                   onClick={() => setOpen(true)}
                 >
                   <Trash className="h-4 w-4" />
