@@ -63,7 +63,7 @@ export const Columns: ColumnDef<ClientColumn>[] = [
     header: "Star",
     cell: ({ row }) => (
       <div className="m-1 flex h-fit items-center">
-        <span className="line-clamp-1 w-fit text-xs font-bold text-white">
+        <span className="line-clamp-1 w-fit text-xs font-bold">
           {row.original.value}
         </span>
         <BrandIcons.star />
