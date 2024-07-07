@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { Loader2, LoaderCircle, Send } from "lucide-react";
+import { Loader2, Send } from "lucide-react";
 import {
   Form,
   FormControl,
@@ -19,6 +19,7 @@ import { Button } from "@/components/ui/button";
 import { SetupFormValues, SetupSchema } from "@/types/user/setup";
 import { setupUser } from "@/actions/user";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import { GenderValues } from "@/types/user/gender";
 
 const SetupForm = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -28,7 +29,7 @@ const SetupForm = () => {
     resolver: zodResolver(SetupSchema),
     defaultValues: {
       username: "",
-      gender: undefined,
+      gender: "" as GenderValues,
     },
   });
 
