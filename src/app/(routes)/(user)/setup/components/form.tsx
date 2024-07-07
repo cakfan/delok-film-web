@@ -16,7 +16,6 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { SetupFormValues, SetupSchema } from "@/types/user/setup";
 import { setupUser } from "@/actions/user";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
@@ -29,7 +28,7 @@ const SetupForm = () => {
     resolver: zodResolver(SetupSchema),
     defaultValues: {
       username: "",
-      gender: "",
+      gender: undefined,
     },
   });
 
