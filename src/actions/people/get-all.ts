@@ -1,3 +1,5 @@
+"use server";
+
 import prismadb from "@/config/prisma";
 import { PeopleWithAuthors } from "@/types/post/people";
 

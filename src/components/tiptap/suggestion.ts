@@ -2,6 +2,8 @@ import type { MentionOptions } from "@tiptap/extension-mention";
 import { ReactRenderer } from "@tiptap/react";
 import tippy, { type Instance as TippyInstance } from "tippy.js";
 import SuggestionList, { type SuggestionListRef } from "./mention-list";
+import { getAllPeoples } from "@/actions/people";
+import { getAllUsers } from "@/actions/user";
 
 export type MentionSuggestion = {
   id: string;
@@ -36,24 +38,23 @@ export const mentionSuggestionOptions: MentionOptions["suggestion"] = {
   // of whatever sort you like (including potentially additional data beyond
   // just an ID and a label). It need not be async but is written that way for
   // the sake of example.
-  items: async ({ query }): Promise<MentionSuggestion[]> => {
-    const getPeoples = await fetch("/api/people");
-    const getUsers = await fetch("/api/user");
+  items: async ({ query }: any): Promise<MentionSuggestion[]> => {
+    const peopleRes = await getAllPeoples();
+    const userRes = await getAllUsers();
 
     let peopleList = [];
     let userList = [];
 
-    const peopleRes = await getPeoples.json();
-    const userRes = await getUsers.json();
-
-    peopleList = peopleRes.map((item: any) => ({
-      id: `people|${item.slug}`,
-      mentionLabel: item.name,
-    }));
-    userList = userRes.map((item: any) => ({
-      id: `user|${item.username}`,
-      mentionLabel: item.name,
-    }));
+    peopleList =
+      peopleRes?.map((item: any) => ({
+        id: `people|${item.slug}`,
+        mentionLabel: item.name,
+      })) ?? [];
+    userList =
+      userRes?.map((item: any) => ({
+        id: `user|${item.username}`,
+        mentionLabel: item.name,
+      })) ?? [];
 
     const mentionList = [...peopleList, ...userList];
     return mentionList
@@ -68,7 +69,7 @@ export const mentionSuggestionOptions: MentionOptions["suggestion"] = {
     let popup: TippyInstance | undefined;
 
     return {
-      onStart: (props) => {
+      onStart: (props: any) => {
         component = new ReactRenderer(SuggestionList, {
           props,
           editor: props.editor,
@@ -86,7 +87,7 @@ export const mentionSuggestionOptions: MentionOptions["suggestion"] = {
         })[0];
       },
 
-      onUpdate(props) {
+      onUpdate(props: any) {
         component?.updateProps(props);
 
         popup?.setProps({
@@ -95,7 +96,7 @@ export const mentionSuggestionOptions: MentionOptions["suggestion"] = {
         });
       },
 
-      onKeyDown(props) {
+      onKeyDown(props: any) {
         if (props.event.key === "Escape") {
           popup?.hide();
           return true;
