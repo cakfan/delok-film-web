@@ -40,7 +40,9 @@ const MoreInfo: FC<MoreInfoProps> = ({ people }) => {
           </div>
           <div>
             <span className="font-bold">Birth Date: </span>{" "}
-            {format(people.birthDate, "PP", { locale: enUS })}
+            {people.birthDate
+              ? format(people.birthDate, "PP", { locale: enUS })
+              : "NA"}
           </div>
           <div className="flex flex-wrap gap-2">
             <span className="w-fit font-bold">Nationality: </span>{" "}

@@ -83,7 +83,7 @@ const FormPeople: React.FC<FormPeopleProps> = ({ initialData, countries }) => {
     defaultValues: initialData || {
       name: "",
       slug: "",
-      gender: "",
+      gender: "male",
       avatar: "",
       birthDate: new Date(2000, 1, 1),
       nativeName: "",

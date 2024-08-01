@@ -135,6 +135,7 @@ model Post {
   screenWriter  String?    @map("screen_writer")
   director      String?
   seasons       Int?
+  tags          String?
   type          String
   releaseDate   DateTime?  @map("release_date")
   producer      String?

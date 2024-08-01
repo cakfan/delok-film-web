@@ -17,7 +17,7 @@ export default async function DashboardPeoples() {
   const formatted: ClientColumn[] = peoples?.length
     ? peoples.map((item) => ({
         id: item.id,
-        name: `${item.name} (${getAge(item.birthDate)})`,
+        name: `${item.name} (${item.birthDate ? getAge(item.birthDate) : "NA"})`,
         avatar: item.avatar || "/img/default.png",
         birthDate: item.birthDate
           ? `${format(item.birthDate, "PPP", { locale: enUS })}`
