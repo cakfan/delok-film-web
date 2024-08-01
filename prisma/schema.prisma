@@ -95,16 +95,16 @@ model Category {
 }
 
 model People {
-  id           String   @id @default(cuid())
+  id           String    @id @default(cuid())
   name         String
-  slug         String   @unique
+  slug         String    @unique
   bio          String
   gender       Gender
   avatar       String?
-  birthDate    DateTime
+  birthDate    DateTime?
   nativeName   String?
   countryId    String
-  nationality  Country  @relation(fields: [countryId], references: [id])
+  nationality  Country   @relation(fields: [countryId], references: [id])
   lastEditById String
   authors      User[]
   casts        Cast[]
@@ -135,6 +135,7 @@ model Post {
   screenWriter  String?    @map("screen_writer")
   director      String?
   seasons       Int?
+  tags          String?
   type          String
   releaseDate   DateTime?  @map("release_date")
   producer      String?

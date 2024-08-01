@@ -18,7 +18,7 @@ const PeopleResult: FC<PeopleResultProps> = async ({ slug }) => {
     <div className="flex h-auto w-full flex-wrap justify-center px-10 py-14 md:gap-24 lg:gap-40 lg:px-20">
       <div className="flex flex-1 flex-col gap-8">
         <div className="prose flex items-start gap-2 dark:prose-invert lg:prose-xl">
-          <h1 className="flex-1">{`${people.name} (${getAge(people.birthDate)})`}</h1>
+          <h1 className="flex-1">{`${people.name} (${people.birthDate ? getAge(people.birthDate) : "NA"})`}</h1>
         </div>
         <div className="flex flex-col md:hidden">
           <MoreInfo people={people} />
