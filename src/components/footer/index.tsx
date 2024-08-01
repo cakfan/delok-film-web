@@ -12,6 +12,13 @@ const FooterComponent = () => {
       >
         @WithCakfan
       </Link>
+      <Link
+        href="https://github.com/cakfan/delok-film-web"
+        target="_blank"
+        className="hover:underline"
+      >
+        GitHub
+      </Link>
     </div>
   );
 };
