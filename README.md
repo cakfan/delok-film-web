@@ -1,36 +1,84 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/create-next-app).
+# Delok Film Web
 
-## Getting Started
+Delok Film Web is a web application for browsing and discovering movies and dramas. This project provides users with a rich interface for exploring film content, similar to mydramalist.com.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Browse and search for movies and dramas.
+- Detailed information on each film, including cast, synopsis, and ratings.
+- User-friendly interface built with modern technologies.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Technologies
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Next.js**: Framework for server-side rendering and static site generation.
+- **TypeScript**: Strongly-typed programming language that builds on JavaScript.
+- **Shadcn-UI**: Component library for building user interfaces.
+- **Server Actions**: For handling server-side logic and data fetching.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load Inter, a custom Google Font.
+## Installation
 
-## Learn More
+To get started with the Delok Film Web project, follow these steps:
 
-To learn more about Next.js, take a look at the following resources:
+1. **Clone the repository:**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+   ```bash
+   git clone https://github.com/cakfan/delok-film-web.git
+   cd delok-film-web
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+2. **Install dependencies:**
 
-## Deploy on Vercel
+   ```bash
+   npm install
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+3. **Run the development server:**
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+   ```bash
+   npm run dev
+   ```
+
+   Navigate to `http://localhost:3000` in your browser to see the application in action.
+
+## Usage
+
+Once the application is running, you can:
+
+- Use the search bar to find movies and dramas.
+- Click on individual titles to view detailed information.
+- Explore various categories and filters to refine your search.
+
+## Contributing
+
+Contributions are welcome! If you'd like to contribute to this project, please fork the repository and submit a pull request with your changes.
+
+1. **Fork the repository.**
+2. **Create a new branch for your feature or bugfix:**
+
+   ```bash
+   git checkout -b my-feature-branch
+   ```
+
+3. **Make your changes and commit them:**
+
+   ```bash
+   git commit -am 'Add new feature or fix bug'
+   ```
+
+4. **Push to the branch:**
+
+   ```bash
+   git push origin my-feature-branch
+   ```
+
+5. **Submit a pull request.**
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Acknowledgements
+
+- **Next.js**: [https://nextjs.org](https://nextjs.org)
+- **TypeScript**: [https://www.typescriptlang.org](https://www.typescriptlang.org)
+- **Shadcn-UI**: [https://shadcn.dev](https://shadcn.dev)
