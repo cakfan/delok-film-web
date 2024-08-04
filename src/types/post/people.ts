@@ -1,4 +1,4 @@
-import { Cast, Country, People, User } from "@prisma/client";
+import { Country, People, User } from "@prisma/client";
 import { z } from "zod";
 import { GenderSchema } from "../user/gender";
 
@@ -15,7 +15,7 @@ export const PeopleSchema = z.object({
   bio: z.string().min(1, { message: "Bio must be not empty" }),
   gender: GenderSchema,
   avatar: z.union([z.string().nullable(), z.undefined()]),
-  birthDate: z.date(),
+  birthDate: z.union([z.date().nullable(), z.undefined()]),
   nativeName: z.union([z.string().nullable(), z.undefined()]),
   countryId: z.string().min(1, { message: "Nationality must be not empty" }),
 });
