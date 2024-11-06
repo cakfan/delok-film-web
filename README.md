@@ -81,4 +81,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - **Next.js**: [https://nextjs.org](https://nextjs.org)
 - **TypeScript**: [https://www.typescriptlang.org](https://www.typescriptlang.org)
-- **Shadcn-UI**: [https://shadcn.dev](https://ui.shadcn.com)
+- **Shadcn-UI**: [https://ui.shadcn.com](https://ui.shadcn.com)
